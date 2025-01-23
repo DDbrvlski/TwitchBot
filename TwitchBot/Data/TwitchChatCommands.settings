@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TwitchBot.Data" GeneratedClassName="TwitchChatCommands">
+  <Profiles />
+  <Settings>
+    <Setting Name="CommandStart" Type="System.String" Scope="User">
+      <Value Profile="(Default)">!</Value>
+    </Setting>
+    <Setting Name="AddDeath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">add</Value>
+    </Setting>
+    <Setting Name="RemoveDeath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">remove</Value>
+    </Setting>
+    <Setting Name="StartBoss" Type="System.String" Scope="User">
+      <Value Profile="(Default)">boss</Value>
+    </Setting>
+    <Setting Name="PauseBoss" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pause</Value>
+    </Setting>
+    <Setting Name="EndBoss" Type="System.String" Scope="User">
+      <Value Profile="(Default)">end</Value>
+    </Setting>
+    <Setting Name="Empty1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Empty" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

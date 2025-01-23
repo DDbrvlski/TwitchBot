@@ -1,0 +1,10 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TwitchBot.Data" GeneratedClassName="DeathCounterUsersPermissions">
+  <Profiles />
+  <Settings>
+    <Setting Name="UsersWithPermission" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Marek
+Karek</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
