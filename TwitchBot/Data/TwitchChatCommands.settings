@@ -20,11 +20,5 @@
     <Setting Name="EndBoss" Type="System.String" Scope="User">
       <Value Profile="(Default)">end</Value>
     </Setting>
-    <Setting Name="Empty1" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="Empty" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
   </Settings>
 </SettingsFile>

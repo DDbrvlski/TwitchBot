@@ -94,29 +94,5 @@ namespace TwitchBot.Data {
                 this["EndBoss"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Empty1 {
-            get {
-                return ((string)(this["Empty1"]));
-            }
-            set {
-                this["Empty1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Empty {
-            get {
-                return ((string)(this["Empty"]));
-            }
-            set {
-                this["Empty"] = value;
-            }
-        }
     }
 }

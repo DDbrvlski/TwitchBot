@@ -1,4 +1,6 @@
-﻿using TwitchBot.Modules.Commands.Interfaces;
+﻿using System.Security.Cryptography;
+using TwitchBot.Modules.Commands.Interfaces;
+using TwitchBot.Modules.TwitchAPI.Interfaces;
 using TwitchBot.Views;
 
 namespace TwitchBot
@@ -6,15 +8,17 @@ namespace TwitchBot
     public partial class BotForm : Form, IBotForm
     {
         private readonly IDeathCounter deathCounter;
-        public BotForm(IDeathCounter deathCounter)
+        private readonly ITwitchCommands twitchCommands;
+        public BotForm(IDeathCounter deathCounter, ITwitchCommands twitchCommands)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             if (deathCounter == null)
             {
                 throw new ArgumentNullException(nameof(deathCounter), "DeathCounter nie zostało wstrzyknięte.");
             }
+            this.twitchCommands = twitchCommands;
             this.deathCounter = deathCounter;
-            LoadStatsData();
+            LoadAllData();
         }
 
         #region Counter
@@ -24,27 +28,32 @@ namespace TwitchBot
             CounterStatusLabelUpdate();
             BossStatusLabelUpdate();
             CurrentBossLabelUpdate();
+            UpdateCounterLog("Uruchomiono licznik.");
         }
 
         private void StopCounterButton_Click(object sender, EventArgs e)
         {
             deathCounter.StopCounter();
             CounterStatusLabelUpdate();
+            UpdateCounterLog("Zatrzymano licznik.");
         }
 
         private void AddDeathButton_Click(object sender, EventArgs e)
         {
             deathCounter.AddNewDeath();
+            UpdateCounterLog("Dodano śmierć.");
         }
 
         private void RemoveDeathButton_Click(object sender, EventArgs e)
         {
             deathCounter.RemoveDeath();
+            UpdateCounterLog("Usunięto śmierć.");
         }
 
         private void ResetDeathsButton_Click(object sender, EventArgs e)
         {
             deathCounter.ResetDeaths();
+            UpdateCounterLog("Zresetowano licznik.");
         }
 
         private void StartBossButton_Click(object sender, EventArgs e)
@@ -54,6 +63,7 @@ namespace TwitchBot
                 deathCounter.StartBoss(BossNameTextBox.Text);
                 CurrentBossLabelUpdate();
                 BossStatusLabelUpdate();
+                UpdateCounterLog($"Rozpoczęto licznik bossa {BossNameTextBox.Text}.");
             }
         }
         private void ResumeBossButton_Click(object sender, EventArgs e)
@@ -61,12 +71,14 @@ namespace TwitchBot
             deathCounter.ResumeBossCounter();
             CurrentBossLabelUpdate();
             BossStatusLabelUpdate();
+            UpdateCounterLog("Wznowiono licznik boss.");
         }
         private void PauseBossButton_Click(object sender, EventArgs e)
         {
             deathCounter.PauseBoss();
             CurrentBossLabelUpdate();
             BossStatusLabelUpdate();
+            UpdateCounterLog("Zatrzymano licznik bossa.");
         }
         private void EndBossButton_Click(object sender, EventArgs e)
         {
@@ -74,6 +86,7 @@ namespace TwitchBot
             CurrentBossLabelUpdate();
             BossStatusLabelUpdate();
             LoadStatsData();
+            UpdateCounterLog("Zakończono licznik bossa.");
         }
 
         private void CounterStatusLabelUpdate()
@@ -138,21 +151,69 @@ namespace TwitchBot
             statsDataGridView.DataSource = stats;
         }
         #endregion
+        #region Commands
+        public void GetAllCommands()
+        {
+            var commands = twitchCommands.GetAllPossibleCommands();
+            CommandsDataGridView.DataSource = commands;
+        }
+        private void GetAllCounterUserPermissions()
+        {
+            var users = twitchCommands.GetAllUsersWithCounterPermissions();
+            if (!CounterUserPermissionsDataGridView.Columns.Contains("Użytkownicy"))
+            {
+                var column = new DataGridViewTextBoxColumn();
+                column.Name = "Użytkownicy";
+                column.HeaderText = "Użytkownicy";
+                CounterUserPermissionsDataGridView.Columns.Add(column);
+            }
+            CounterUserPermissionsDataGridView.Columns["Użytkownicy"].DataPropertyName = "UserName";
+            CounterUserPermissionsDataGridView.DataSource = users;
+
+        }
+        #endregion
         public void UpdateLog(string logMessage)
         {
             if (InvokeRequired)
             {
                 Invoke(new MethodInvoker(delegate
                 {
-                    LoggingTextBox.AppendText(logMessage + Environment.NewLine);
+                    LoggingTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
                 }));
             }
             else
             {
-                LoggingTextBox.AppendText(logMessage + Environment.NewLine);
+                LoggingTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
+            }
+        }
+        private void UpdateCounterLog(string logMessage)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(delegate
+                {
+                    CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] "+logMessage + Environment.NewLine);
+                }));
+            }
+            else
+            {
+                CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
             }
         }
         private void LoggingTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        #region Data
+        private void LoadAllData()
+        {
+            LoadStatsData();
+            GetAllCommands();
+            GetAllCounterUserPermissions();
+        }
+        #endregion
+
+        private void CounterUserPermissionsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
