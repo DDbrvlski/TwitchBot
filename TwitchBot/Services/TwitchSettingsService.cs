@@ -44,7 +44,6 @@ namespace TwitchBot.Services
 
         public List<string> CounterPermissionUsers()
         {
-            // Przetestować
             return Data.DeathCounterUsersPermissions.Default.UsersWithPermission.Split(Environment.NewLine).ToList();
         }
     }

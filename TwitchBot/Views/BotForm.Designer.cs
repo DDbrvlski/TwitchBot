@@ -30,6 +30,7 @@
         {
             tabControl1 = new TabControl();
             CounterTabPage = new TabPage();
+            CounterLogsTextBox = new RichTextBox();
             ResumeBossButton = new Button();
             ResetDeathsButton = new Button();
             RemoveDeathButton = new Button();
@@ -65,7 +66,11 @@
             SaveCommandsButton = new Button();
             LogsTabPage = new TabPage();
             LoggingTextBox = new RichTextBox();
-            CounterLogsTextBox = new RichTextBox();
+            ActivationTabPage = new TabPage();
+            BotStatusLabel = new Label();
+            label3 = new Label();
+            TurnOffBotButton = new Button();
+            TurnOnBotButton = new Button();
             tabControl1.SuspendLayout();
             CounterTabPage.SuspendLayout();
             StatsTabPage.SuspendLayout();
@@ -75,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)CounterUserPermissionsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CommandsDataGridView).BeginInit();
             LogsTabPage.SuspendLayout();
+            ActivationTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -84,6 +90,7 @@
             tabControl1.Controls.Add(AccountSettingTabPage);
             tabControl1.Controls.Add(CommandsTabPage);
             tabControl1.Controls.Add(LogsTabPage);
+            tabControl1.Controls.Add(ActivationTabPage);
             tabControl1.Location = new Point(5, 6);
             tabControl1.Margin = new Padding(3, 4, 3, 4);
             tabControl1.Name = "tabControl1";
@@ -115,6 +122,16 @@
             CounterTabPage.TabIndex = 0;
             CounterTabPage.Text = "Licznik";
             CounterTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CounterLogsTextBox
+            // 
+            CounterLogsTextBox.Location = new Point(341, 21);
+            CounterLogsTextBox.Margin = new Padding(3, 4, 3, 4);
+            CounterLogsTextBox.Name = "CounterLogsTextBox";
+            CounterLogsTextBox.Size = new Size(421, 166);
+            CounterLogsTextBox.TabIndex = 13;
+            CounterLogsTextBox.Text = "";
+            CounterLogsTextBox.TextChanged += CounterLogsTextBox_TextChanged;
             // 
             // ResumeBossButton
             // 
@@ -501,14 +518,61 @@
             LoggingTextBox.Text = "";
             LoggingTextBox.TextChanged += LoggingTextBox_TextChanged;
             // 
-            // CounterLogsTextBox
+            // ActivationTabPage
             // 
-            CounterLogsTextBox.Location = new Point(341, 21);
-            CounterLogsTextBox.Margin = new Padding(3, 4, 3, 4);
-            CounterLogsTextBox.Name = "CounterLogsTextBox";
-            CounterLogsTextBox.Size = new Size(421, 166);
-            CounterLogsTextBox.TabIndex = 13;
-            CounterLogsTextBox.Text = "";
+            ActivationTabPage.Controls.Add(BotStatusLabel);
+            ActivationTabPage.Controls.Add(label3);
+            ActivationTabPage.Controls.Add(TurnOffBotButton);
+            ActivationTabPage.Controls.Add(TurnOnBotButton);
+            ActivationTabPage.Location = new Point(4, 29);
+            ActivationTabPage.Name = "ActivationTabPage";
+            ActivationTabPage.Size = new Size(785, 517);
+            ActivationTabPage.TabIndex = 5;
+            ActivationTabPage.Text = "Panel";
+            ActivationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // BotStatusLabel
+            // 
+            BotStatusLabel.AutoSize = true;
+            BotStatusLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            BotStatusLabel.ForeColor = Color.Red;
+            BotStatusLabel.Location = new Point(537, 79);
+            BotStatusLabel.Name = "BotStatusLabel";
+            BotStatusLabel.Size = new Size(86, 28);
+            BotStatusLabel.TabIndex = 3;
+            BotStatusLabel.Text = "OFFLINE";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            label3.Location = new Point(486, 21);
+            label3.Name = "label3";
+            label3.Size = new Size(185, 38);
+            label3.TabIndex = 2;
+            label3.Text = "STATUS BOTA";
+            // 
+            // TurnOffBotButton
+            // 
+            TurnOffBotButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            TurnOffBotButton.Location = new Point(46, 309);
+            TurnOffBotButton.Name = "TurnOffBotButton";
+            TurnOffBotButton.Size = new Size(130, 49);
+            TurnOffBotButton.TabIndex = 1;
+            TurnOffBotButton.Text = "Wyłącz";
+            TurnOffBotButton.UseVisualStyleBackColor = true;
+            TurnOffBotButton.Click += TurnOffBotButton_Click;
+            // 
+            // TurnOnBotButton
+            // 
+            TurnOnBotButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            TurnOnBotButton.Location = new Point(46, 176);
+            TurnOnBotButton.Name = "TurnOnBotButton";
+            TurnOnBotButton.Size = new Size(130, 44);
+            TurnOnBotButton.TabIndex = 0;
+            TurnOnBotButton.Text = "Uruchom bota";
+            TurnOnBotButton.UseVisualStyleBackColor = true;
+            TurnOnBotButton.Click += TurnOnBotButton_Click;
             // 
             // BotForm
             // 
@@ -519,6 +583,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "BotForm";
             Text = "Bot";
+            Load += BotForm_Load;
             tabControl1.ResumeLayout(false);
             CounterTabPage.ResumeLayout(false);
             CounterTabPage.PerformLayout();
@@ -530,6 +595,8 @@
             ((System.ComponentModel.ISupportInitialize)CounterUserPermissionsDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)CommandsDataGridView).EndInit();
             LogsTabPage.ResumeLayout(false);
+            ActivationTabPage.ResumeLayout(false);
+            ActivationTabPage.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -573,6 +640,11 @@
         private Button AddCommandButton;
         private Button AddUserPermissionButton;
         private RichTextBox CounterLogsTextBox;
+        private TabPage ActivationTabPage;
+        private Label BotStatusLabel;
+        private Label label3;
+        private Button TurnOffBotButton;
+        private Button TurnOnBotButton;
     }
 }
 

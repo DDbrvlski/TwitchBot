@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using TwitchBot.Modules.Commands.Interfaces;
 using TwitchBot.Modules.TwitchAPI.Interfaces;
+using TwitchBot.Services.Form;
 using TwitchBot.Views;
 
 namespace TwitchBot
@@ -9,7 +10,13 @@ namespace TwitchBot
     {
         private readonly IDeathCounter deathCounter;
         private readonly ITwitchCommands twitchCommands;
-        public BotForm(IDeathCounter deathCounter, ITwitchCommands twitchCommands)
+        private readonly ITwitchConnection twitchConnection;
+        private readonly FormService formService;
+        public BotForm
+            (IDeathCounter deathCounter, 
+            ITwitchCommands twitchCommands, 
+            ITwitchConnection twitchConnection, 
+            FormService formService)
         {
             InitializeComponent();
             if (deathCounter == null)
@@ -17,7 +24,11 @@ namespace TwitchBot
                 throw new ArgumentNullException(nameof(deathCounter), "DeathCounter nie zostało wstrzyknięte.");
             }
             this.twitchCommands = twitchCommands;
+            this.formService = formService;
+            formService.UpdateLogTextBox += UpdateLog;
+            this.twitchConnection = twitchConnection;
             this.deathCounter = deathCounter;
+            this.Text = "TwitchBot (offline)";
             LoadAllData();
         }
 
@@ -172,6 +183,9 @@ namespace TwitchBot
 
         }
         #endregion
+        #region Connection
+
+        #endregion
         public void UpdateLog(string logMessage)
         {
             if (InvokeRequired)
@@ -192,7 +206,7 @@ namespace TwitchBot
             {
                 Invoke(new MethodInvoker(delegate
                 {
-                    CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] "+logMessage + Environment.NewLine);
+                    CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
                 }));
             }
             else
@@ -212,8 +226,41 @@ namespace TwitchBot
             GetAllCounterUserPermissions();
         }
         #endregion
-
         private void CounterUserPermissionsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void BotForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TurnOnBotButton_Click(object sender, EventArgs e)
+        {
+            twitchConnection.Connection(true);
+
+            if (twitchConnection.IsBotConnected())
+            {
+                BotStatusLabel.Text = "ONLINE";
+                BotStatusLabel.ForeColor = Color.Green;
+                this.Text = "TwitchBot (online)";
+            }
+        }
+
+        private void TurnOffBotButton_Click(object sender, EventArgs e)
+        {
+            twitchConnection.Disconnect();
+
+            if (!twitchConnection.IsBotConnected())
+            {
+                BotStatusLabel.Text = "OFFLINE";
+                BotStatusLabel.ForeColor = Color.Red;
+                this.Text = "TwitchBot (offline)";
+            }
+        }
+
+        private void CounterLogsTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

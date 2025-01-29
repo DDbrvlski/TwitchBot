@@ -1,5 +1,4 @@
 ﻿using TwitchBot.ViewModels;
-using TwitchLib.Client.Events;
 
 namespace TwitchBot.Modules.TwitchAPI.Interfaces
 {
@@ -7,6 +6,5 @@ namespace TwitchBot.Modules.TwitchAPI.Interfaces
     {
         List<SettingViewModel> GetAllPossibleCommands();
         List<UserPermissions> GetAllUsersWithCounterPermissions();
-        void ProcessCommand(string commandText, OnMessageReceivedArgs e);
     }
 }

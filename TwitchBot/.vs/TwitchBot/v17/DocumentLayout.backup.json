@@ -7,28 +7,40 @@
       "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:views\\botform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\twitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\twitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\views\\botform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:views\\botform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\interfaces\\itwitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\interfaces\\itwitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\twitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\twitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\views\\botform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:views\\botform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\services\\form\\formservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:services\\form\\formservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\interfaces\\itwitchcommandshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\interfaces\\itwitchcommandshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\twitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\twitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\twitchcommandshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\twitchcommandshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\services\\twitchsettingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:services\\twitchsettingsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\interfaces\\itwitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\interfaces\\itwitchcommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|c:\\users\\damian\\desktop\\zadania\\moje\\projekt\\twitchbot\\modules\\twitchapi\\twitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A705C8-4201-421A-92C9-6C96CFEE2635}|TwitchBot.csproj|solutionrelative:modules\\twitchapi\\twitchconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,8 +50,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T12:29:01.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FormService.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\Form\\FormService.cs",
+              "RelativeDocumentMoniker": "Services\\Form\\FormService.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\Form\\FormService.cs",
+              "RelativeToolTip": "Services\\Form\\FormService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T12:11:41.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ITwitchCommandsHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchCommandsHandler.cs",
+              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\Interfaces\\ITwitchCommandsHandler.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchCommandsHandler.cs",
+              "RelativeToolTip": "Modules\\TwitchAPI\\Interfaces\\ITwitchCommandsHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T11:59:13.194Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ITwitchConnection.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchConnection.cs",
+              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\Interfaces\\ITwitchConnection.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchConnection.cs",
+              "RelativeToolTip": "Modules\\TwitchAPI\\Interfaces\\ITwitchConnection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T11:18:57.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BotForm.cs [Projekt]",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Views\\BotForm.cs",
+              "RelativeDocumentMoniker": "Views\\BotForm.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Views\\BotForm.cs [Projekt]",
+              "RelativeToolTip": "Views\\BotForm.cs [Projekt]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T11:13:55.442Z",
+              "EditorCaption": " [Projekt]"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,86 +124,62 @@
               "RelativeDocumentMoniker": "Views\\BotForm.cs",
               "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Views\\BotForm.cs",
               "RelativeToolTip": "Views\\BotForm.cs",
-              "ViewState": "AgIAALMAAAAAAAAAAAAAALgAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T14:27:19.506Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T11:12:11.005Z",
+              "WhenOpened": "2025-01-29T11:18:00.778Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "BotForm.cs [Projekt]",
-              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Views\\BotForm.cs",
-              "RelativeDocumentMoniker": "Views\\BotForm.cs",
-              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Views\\BotForm.cs [Projekt]",
-              "RelativeToolTip": "Views\\BotForm.cs [Projekt]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T11:08:14.264Z",
-              "EditorCaption": " [Projekt]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TwitchSettingsService.cs",
-              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\TwitchSettingsService.cs",
-              "RelativeDocumentMoniker": "Services\\TwitchSettingsService.cs",
-              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\TwitchSettingsService.cs",
-              "RelativeToolTip": "Services\\TwitchSettingsService.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T13:22:09.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TwitchCommands.cs",
-              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommands.cs",
-              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\TwitchCommands.cs",
-              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommands.cs",
-              "RelativeToolTip": "Modules\\TwitchAPI\\TwitchCommands.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAAAA4AAABsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T13:15:35.577Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ITwitchCommands.cs",
-              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchCommands.cs",
-              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\Interfaces\\ITwitchCommands.cs",
-              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\Interfaces\\ITwitchCommands.cs",
-              "RelativeToolTip": "Modules\\TwitchAPI\\Interfaces\\ITwitchCommands.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T11:21:57.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "TwitchConnection.cs",
               "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchConnection.cs",
               "RelativeDocumentMoniker": "Modules\\TwitchAPI\\TwitchConnection.cs",
               "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchConnection.cs",
               "RelativeToolTip": "Modules\\TwitchAPI\\TwitchConnection.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAFAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T11:10:33.287Z"
+              "WhenOpened": "2025-01-29T11:18:27.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TwitchCommandsHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommandsHandler.cs",
+              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\TwitchCommandsHandler.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommandsHandler.cs",
+              "RelativeToolTip": "Modules\\TwitchAPI\\TwitchCommandsHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T11:54:00.961Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TwitchCommands.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommands.cs",
+              "RelativeDocumentMoniker": "Modules\\TwitchAPI\\TwitchCommands.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Modules\\TwitchAPI\\TwitchCommands.cs",
+              "RelativeToolTip": "Modules\\TwitchAPI\\TwitchCommands.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T11:58:43.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TwitchSettingsService.cs",
+              "DocumentMoniker": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\TwitchSettingsService.cs",
+              "RelativeDocumentMoniker": "Services\\TwitchSettingsService.cs",
+              "ToolTip": "C:\\Users\\Damian\\Desktop\\Zadania\\moje\\Projekt\\TwitchBot\\Services\\TwitchSettingsService.cs",
+              "RelativeToolTip": "Services\\TwitchSettingsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T13:13:42.68Z",
+              "EditorCaption": ""
             }
           ]
         }

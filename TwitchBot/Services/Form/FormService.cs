@@ -1,13 +1,16 @@
-﻿using TwitchBot.Services.Form.Interfaces;
-using TwitchBot.Views;
+﻿using TwitchBot.Views;
 
 namespace TwitchBot.Services.Form
 {
-    public class FormService(IBotForm botForm) : IFormService
+    public class FormService
     {
+        // Zdarzenie, które informuje o zmianie w TextBoxie
+        public event Action<string> UpdateLogTextBox;
+
+        // Metoda do wywołania zdarzenia
         public void UpdateLog(string log)
         {
-            botForm.UpdateLog(log);
+            UpdateLogTextBox?.Invoke(log);
         }
     }
 }

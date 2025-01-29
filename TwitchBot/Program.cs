@@ -6,7 +6,7 @@ using TwitchBot.Modules.TwitchAPI;
 using TwitchBot.Modules.TwitchAPI.Interfaces;
 using TwitchBot.Services;
 using TwitchBot.Services.Form;
-using TwitchBot.Services.Form.Interfaces;
+using TwitchBot.Views;
 
 namespace TwitchBot
 {
@@ -37,8 +37,11 @@ namespace TwitchBot
                 {
                     // Rejestracja usług i zależności
                     services.AddTransient<IDeathCounter, DeathCounter>(); // Rejestracja DeathCounter
+                    services.AddTransient<ITwitchCommandsHandler, TwitchCommandsHandler>();
                     services.AddTransient<ITwitchCommands, TwitchCommands>();
-                    services.AddTransient<IFormService, FormService>();
+                    services.AddTransient<ITwitchConnection, TwitchConnection>();
+                    services.AddSingleton<FormService>();
+                    services.AddTransient<IBotForm, BotForm>();
                     services.AddTransient<ITwitchSettingsService, TwitchSettingsService>();
 
                     // Rejestracja BotForm

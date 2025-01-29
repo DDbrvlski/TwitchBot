@@ -1,37 +1,86 @@
 ﻿using TwitchBot.Modules.TwitchAPI.Interfaces;
-using TwitchBot.Services.Form.Interfaces;
+using TwitchBot.Services.Form;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
+using TwitchLib.Communication.Interfaces;
 
 namespace TwitchBot.Modules.TwitchAPI
 {
-    public class TwitchConnection(ITwitchCommands twitchCommands, BotForm botForm, IFormService formService)
+    public class TwitchConnection : ITwitchConnection
     {
-        private readonly ConnectionCredentials connectionCredentials = new ConnectionCredentials(Properties.Settings.Default.TwitchAccountName, Properties.Settings.Default.TwitchBotToken);
+        private readonly ConnectionCredentials connectionCredentials;
+        private readonly FormService formService;
+        private readonly ITwitchCommandsHandler twitchCommands;
         private TwitchClient twitchClient;
-        private bool isBotConnected;
+        private bool isBotConnected = false;
 
-
-        public async Task Connection(bool isLogging)
+        public TwitchConnection(ITwitchCommandsHandler twitchCommands, FormService formService)
         {
+            var twitchAccountName = Properties.Settings.Default.TwitchAccountName;
+            var twitchBotToken = Properties.Settings.Default.TwitchBotToken;
+            if (!string.IsNullOrEmpty(twitchAccountName) && !string.IsNullOrEmpty(twitchBotToken))
+            {
+                connectionCredentials = new ConnectionCredentials(twitchAccountName, twitchBotToken);
+            }
+
+            this.formService = formService;
+            this.twitchCommands = twitchCommands;
             twitchClient = new TwitchClient();
-            twitchClient.Initialize(connectionCredentials, Properties.Settings.Default.TwitchAccountName);
-
-            twitchClient.OnConnected += Client_OnConnected;
-
-            isBotConnected = true;
-
-            botForm.UpdateLog("[Bot]: Connecting...");
-            if (isLogging)
-                twitchClient.OnLog += Client_OnLog;
-
-            //client.OnChatCommandReceived += Client_OnChatCommandReceived;
-            twitchClient.OnMessageReceived += Client_OnMessageReceived;
-
-            twitchClient.Connect();
         }
 
+        public void Connection(bool isLogging)
+        {
+            try
+            {
+                if (connectionCredentials != null && !string.IsNullOrEmpty(Properties.Settings.Default.TwitchAccountName))
+                {
+                    
+                    twitchClient.Initialize(connectionCredentials, Properties.Settings.Default.TwitchAccountName);
+
+                    twitchClient.OnConnected += Client_OnConnected;
+
+                    isBotConnected = true;
+
+                    formService.UpdateLog("[Bot]: Connecting...");
+                    if (isLogging)
+                        twitchClient.OnLog += Client_OnLog;
+
+                    //client.OnChatCommandReceived += Client_OnChatCommandReceived;
+                    twitchClient.OnMessageReceived += Client_OnMessageReceived;
+
+                    twitchClient.Connect();
+                }
+                else
+                {
+                    formService.UpdateLog("[Bot]: Error occured: possibility of missing data about twitch account and twitch bot.");
+                }
+            }
+            catch (Exception ex)
+            {
+                formService.UpdateLog("[Bot]: Connecting failed, error occured: " + ex.Message);
+            }
+        }
+        public void Disconnect()
+        {
+            try
+            {
+                if (isBotConnected)
+                {
+                    twitchClient.Disconnect();
+                    isBotConnected = false;
+                    formService.UpdateLog("[Bot]: Disconnected");
+                }
+            }
+            catch (Exception ex)
+            {
+                formService.UpdateLog("[Bot]: Connecting failed, error occured: " + ex.Message);
+            }
+        }
+        public bool IsBotConnected()
+        {
+            return isBotConnected;
+        }
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
             formService.UpdateLog("[Bot]: Connected");
