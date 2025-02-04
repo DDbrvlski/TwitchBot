@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using TwitchBot.Modules.TwitchAPI.Interfaces;
-using TwitchBot.Services;
-using TwitchBot.ViewModels;
+using TwitchBot.Models.DTO;
+using TwitchBot.Services.TwitchAPI.Interfaces;
 
-namespace TwitchBot.Modules.TwitchAPI
+namespace TwitchBot.Services.TwitchAPI
 {
     public class TwitchCommands(ITwitchSettingsService twitchSettingsService) : ITwitchCommands
     {
         private static string projectDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName).FullName).FullName;
         private readonly string twitchChatCommandsFilePath = Path.Combine(projectDirectory, "Data", "TwitchChatCommands.settings");
-        public List<SettingViewModel> GetAllPossibleCommands()
+        public List<SettingDTO> GetAllPossibleCommands()
         {
             var commandStart = Data.TwitchChatCommands.Default.CommandStart.ToString();
 
@@ -22,7 +21,7 @@ namespace TwitchBot.Modules.TwitchAPI
             XElement xElement = XElement.Load(twitchChatCommandsFilePath);
 
             // Przygotowanie słownika na komendy
-            var commands = new List<SettingViewModel>();
+            var commands = new List<SettingDTO>();
 
             // Iteracja po elementach <Setting> i wyciąganie komend i ich wartości
             foreach (var setting in xElement.Descendants("{http://schemas.microsoft.com/VisualStudio/2004/01/settings}Setting"))
@@ -32,7 +31,7 @@ namespace TwitchBot.Modules.TwitchAPI
 
                 if (name != null && value != null)
                 {
-                    commands.Add(new SettingViewModel() { Key = name, Value = value });
+                    commands.Add(new SettingDTO() { Key = name, Value = value });
                 }
             }
 

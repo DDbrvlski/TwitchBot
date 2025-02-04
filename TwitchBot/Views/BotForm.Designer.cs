@@ -30,6 +30,13 @@
         {
             tabControl1 = new TabControl();
             CounterTabPage = new TabPage();
+            SaveCustomBossCounterButton = new Button();
+            label6 = new Label();
+            label5 = new Label();
+            SaveCustomCounterButton = new Button();
+            label4 = new Label();
+            CustomBossCounterTextBox = new RichTextBox();
+            CustomCounterTextBox = new RichTextBox();
             CounterLogsTextBox = new RichTextBox();
             ResumeBossButton = new Button();
             ResetDeathsButton = new Button();
@@ -45,10 +52,9 @@
             StopCounterButton = new Button();
             StartCounterButton = new Button();
             StatsTabPage = new TabPage();
+            DeleteBossStatButton = new Button();
+            AddBossStatsButton = new Button();
             statsDataGridView = new DataGridView();
-            bossNameColumn = new DataGridViewTextBoxColumn();
-            deathCounterColumn = new DataGridViewTextBoxColumn();
-            timerColumn = new DataGridViewTextBoxColumn();
             AccountSettingTabPage = new TabPage();
             SaveSettings = new Button();
             TwitchBotTokenTextBox = new RichTextBox();
@@ -71,6 +77,7 @@
             label3 = new Label();
             TurnOffBotButton = new Button();
             TurnOnBotButton = new Button();
+            OpenAddBossStatForm = new OpenFileDialog();
             tabControl1.SuspendLayout();
             CounterTabPage.SuspendLayout();
             StatsTabPage.SuspendLayout();
@@ -100,6 +107,13 @@
             // 
             // CounterTabPage
             // 
+            CounterTabPage.Controls.Add(SaveCustomBossCounterButton);
+            CounterTabPage.Controls.Add(label6);
+            CounterTabPage.Controls.Add(label5);
+            CounterTabPage.Controls.Add(SaveCustomCounterButton);
+            CounterTabPage.Controls.Add(label4);
+            CounterTabPage.Controls.Add(CustomBossCounterTextBox);
+            CounterTabPage.Controls.Add(CustomCounterTextBox);
             CounterTabPage.Controls.Add(CounterLogsTextBox);
             CounterTabPage.Controls.Add(ResumeBossButton);
             CounterTabPage.Controls.Add(ResetDeathsButton);
@@ -122,6 +136,81 @@
             CounterTabPage.TabIndex = 0;
             CounterTabPage.Text = "Licznik";
             CounterTabPage.UseVisualStyleBackColor = true;
+            // 
+            // SaveCustomBossCounterButton
+            // 
+            SaveCustomBossCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            SaveCustomBossCounterButton.Location = new Point(192, 397);
+            SaveCustomBossCounterButton.Margin = new Padding(3, 4, 3, 4);
+            SaveCustomBossCounterButton.Name = "SaveCustomBossCounterButton";
+            SaveCustomBossCounterButton.Size = new Size(81, 36);
+            SaveCustomBossCounterButton.TabIndex = 20;
+            SaveCustomBossCounterButton.Text = "Zapisz";
+            SaveCustomBossCounterButton.UseVisualStyleBackColor = true;
+            SaveCustomBossCounterButton.Click += SaveCustomBossCounterButton_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(16, 400);
+            label6.Name = "label6";
+            label6.Size = new Size(73, 20);
+            label6.TabIndex = 19;
+            label6.Text = "2. Boss";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(16, 357);
+            label5.Name = "label5";
+            label5.Size = new Size(90, 20);
+            label5.TabIndex = 18;
+            label5.Text = "1. Licznik";
+            // 
+            // SaveCustomCounterButton
+            // 
+            SaveCustomCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            SaveCustomCounterButton.Location = new Point(192, 348);
+            SaveCustomCounterButton.Margin = new Padding(3, 4, 3, 4);
+            SaveCustomCounterButton.Name = "SaveCustomCounterButton";
+            SaveCustomCounterButton.Size = new Size(81, 36);
+            SaveCustomCounterButton.TabIndex = 17;
+            SaveCustomCounterButton.Text = "Zapisz";
+            SaveCustomCounterButton.UseVisualStyleBackColor = true;
+            SaveCustomCounterButton.Click += SaveCustomCounterButton_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(16, 304);
+            label4.Name = "label4";
+            label4.Size = new Size(217, 20);
+            label4.TabIndex = 16;
+            label4.Text = "Niestandardowe śmierci:";
+            // 
+            // CustomBossCounterTextBox
+            // 
+            CustomBossCounterTextBox.Location = new Point(112, 397);
+            CustomBossCounterTextBox.Margin = new Padding(3, 4, 3, 4);
+            CustomBossCounterTextBox.Name = "CustomBossCounterTextBox";
+            CustomBossCounterTextBox.Size = new Size(64, 36);
+            CustomBossCounterTextBox.TabIndex = 15;
+            CustomBossCounterTextBox.Text = "0";
+            // 
+            // CustomCounterTextBox
+            // 
+            CustomCounterTextBox.Location = new Point(112, 348);
+            CustomCounterTextBox.Margin = new Padding(3, 4, 3, 4);
+            CustomCounterTextBox.Name = "CustomCounterTextBox";
+            CustomCounterTextBox.Size = new Size(64, 36);
+            CustomCounterTextBox.TabIndex = 14;
+            CustomCounterTextBox.Text = "0";
             // 
             // CounterLogsTextBox
             // 
@@ -148,36 +237,36 @@
             // ResetDeathsButton
             // 
             ResetDeathsButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            ResetDeathsButton.Location = new Point(16, 348);
+            ResetDeathsButton.Location = new Point(16, 179);
             ResetDeathsButton.Margin = new Padding(3, 4, 3, 4);
             ResetDeathsButton.Name = "ResetDeathsButton";
-            ResetDeathsButton.Size = new Size(250, 65);
+            ResetDeathsButton.Size = new Size(103, 56);
             ResetDeathsButton.TabIndex = 11;
-            ResetDeathsButton.Text = "Zresetuj śmierci";
+            ResetDeathsButton.Text = "Reset";
             ResetDeathsButton.UseVisualStyleBackColor = true;
             ResetDeathsButton.Click += ResetDeathsButton_Click;
             // 
             // RemoveDeathButton
             // 
-            RemoveDeathButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            RemoveDeathButton.Location = new Point(16, 246);
+            RemoveDeathButton.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            RemoveDeathButton.Location = new Point(168, 96);
             RemoveDeathButton.Margin = new Padding(3, 4, 3, 4);
             RemoveDeathButton.Name = "RemoveDeathButton";
-            RemoveDeathButton.Size = new Size(250, 65);
+            RemoveDeathButton.Size = new Size(65, 50);
             RemoveDeathButton.TabIndex = 10;
-            RemoveDeathButton.Text = "Odejmij śmierć";
+            RemoveDeathButton.Text = "-";
             RemoveDeathButton.UseVisualStyleBackColor = true;
             RemoveDeathButton.Click += RemoveDeathButton_Click;
             // 
             // AddDeathButton
             // 
-            AddDeathButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            AddDeathButton.Location = new Point(16, 151);
+            AddDeathButton.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            AddDeathButton.Location = new Point(33, 98);
             AddDeathButton.Margin = new Padding(3, 4, 3, 4);
             AddDeathButton.Name = "AddDeathButton";
-            AddDeathButton.Size = new Size(250, 65);
+            AddDeathButton.Size = new Size(73, 50);
             AddDeathButton.TabIndex = 9;
-            AddDeathButton.Text = "Dodaj śmierć";
+            AddDeathButton.Text = "+";
             AddDeathButton.UseVisualStyleBackColor = true;
             AddDeathButton.Click += AddDeathButton_Click;
             // 
@@ -208,7 +297,7 @@
             CounterStatusLabel.AutoSize = true;
             CounterStatusLabel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             CounterStatusLabel.ForeColor = Color.Red;
-            CounterStatusLabel.Location = new Point(33, 464);
+            CounterStatusLabel.Location = new Point(16, 478);
             CounterStatusLabel.Name = "CounterStatusLabel";
             CounterStatusLabel.Size = new Size(195, 20);
             CounterStatusLabel.TabIndex = 6;
@@ -262,12 +351,12 @@
             // StopCounterButton
             // 
             StopCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            StopCounterButton.Location = new Point(16, 80);
+            StopCounterButton.Location = new Point(146, 23);
             StopCounterButton.Margin = new Padding(3, 4, 3, 4);
             StopCounterButton.Name = "StopCounterButton";
-            StopCounterButton.Size = new Size(212, 49);
+            StopCounterButton.Size = new Size(103, 49);
             StopCounterButton.TabIndex = 1;
-            StopCounterButton.Text = "Zatrzymaj naliczanie";
+            StopCounterButton.Text = "Stop";
             StopCounterButton.UseVisualStyleBackColor = true;
             StopCounterButton.Click += StopCounterButton_Click;
             // 
@@ -277,14 +366,16 @@
             StartCounterButton.Location = new Point(16, 21);
             StartCounterButton.Margin = new Padding(3, 4, 3, 4);
             StartCounterButton.Name = "StartCounterButton";
-            StartCounterButton.Size = new Size(212, 51);
+            StartCounterButton.Size = new Size(103, 51);
             StartCounterButton.TabIndex = 0;
-            StartCounterButton.Text = "Rozpocznij naliczanie";
+            StartCounterButton.Text = "Start";
             StartCounterButton.UseVisualStyleBackColor = true;
             StartCounterButton.Click += StartCounterButton_Click;
             // 
             // StatsTabPage
             // 
+            StatsTabPage.Controls.Add(DeleteBossStatButton);
+            StatsTabPage.Controls.Add(AddBossStatsButton);
             StatsTabPage.Controls.Add(statsDataGridView);
             StatsTabPage.Location = new Point(4, 29);
             StatsTabPage.Margin = new Padding(3, 4, 3, 4);
@@ -294,40 +385,37 @@
             StatsTabPage.Text = "Stats";
             StatsTabPage.UseVisualStyleBackColor = true;
             // 
+            // DeleteBossStatButton
+            // 
+            DeleteBossStatButton.Location = new Point(173, 470);
+            DeleteBossStatButton.Name = "DeleteBossStatButton";
+            DeleteBossStatButton.Size = new Size(124, 44);
+            DeleteBossStatButton.TabIndex = 2;
+            DeleteBossStatButton.Text = "Usuń";
+            DeleteBossStatButton.UseVisualStyleBackColor = true;
+            DeleteBossStatButton.Click += DeleteBossStatButton_Click;
+            // 
+            // AddBossStatsButton
+            // 
+            AddBossStatsButton.Location = new Point(3, 470);
+            AddBossStatsButton.Name = "AddBossStatsButton";
+            AddBossStatsButton.Size = new Size(124, 44);
+            AddBossStatsButton.TabIndex = 1;
+            AddBossStatsButton.Text = "Dodaj";
+            AddBossStatsButton.UseVisualStyleBackColor = true;
+            AddBossStatsButton.Click += AddBossStatsButton_Click;
+            // 
             // statsDataGridView
             // 
             statsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            statsDataGridView.Columns.AddRange(new DataGridViewColumn[] { bossNameColumn, deathCounterColumn, timerColumn });
             statsDataGridView.Location = new Point(3, 4);
             statsDataGridView.Margin = new Padding(3, 4, 3, 4);
             statsDataGridView.Name = "statsDataGridView";
             statsDataGridView.RowHeadersWidth = 51;
             statsDataGridView.RowTemplate.Height = 24;
-            statsDataGridView.Size = new Size(782, 506);
+            statsDataGridView.Size = new Size(782, 459);
             statsDataGridView.TabIndex = 0;
-            // 
-            // bossNameColumn
-            // 
-            bossNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            bossNameColumn.FillWeight = 300F;
-            bossNameColumn.HeaderText = "Nazwa Bossa";
-            bossNameColumn.MinimumWidth = 6;
-            bossNameColumn.Name = "bossNameColumn";
-            bossNameColumn.Width = 125;
-            // 
-            // deathCounterColumn
-            // 
-            deathCounterColumn.HeaderText = "Liczba śmierci";
-            deathCounterColumn.MinimumWidth = 6;
-            deathCounterColumn.Name = "deathCounterColumn";
-            deathCounterColumn.Width = 125;
-            // 
-            // timerColumn
-            // 
-            timerColumn.HeaderText = "Czas";
-            timerColumn.MinimumWidth = 6;
-            timerColumn.Name = "timerColumn";
-            timerColumn.Width = 125;
+            statsDataGridView.CellContentClick += statsDataGridView_CellContentClick;
             // 
             // AccountSettingTabPage
             // 
@@ -473,7 +561,6 @@
             CounterUserPermissionsDataGridView.RowTemplate.Height = 24;
             CounterUserPermissionsDataGridView.Size = new Size(343, 430);
             CounterUserPermissionsDataGridView.TabIndex = 4;
-            CounterUserPermissionsDataGridView.CellContentClick += CounterUserPermissionsDataGridView_CellContentClick;
             // 
             // CommandsDataGridView
             // 
@@ -516,7 +603,6 @@
             LoggingTextBox.Size = new Size(779, 505);
             LoggingTextBox.TabIndex = 0;
             LoggingTextBox.Text = "";
-            LoggingTextBox.TextChanged += LoggingTextBox_TextChanged;
             // 
             // ActivationTabPage
             // 
@@ -574,6 +660,11 @@
             TurnOnBotButton.UseVisualStyleBackColor = true;
             TurnOnBotButton.Click += TurnOnBotButton_Click;
             // 
+            // OpenAddBossStatForm
+            // 
+            OpenAddBossStatForm.FileName = "AddBossStatForm";
+            OpenAddBossStatForm.FileOk += OpenAddBossStatForm_FileOk;
+            // 
             // BotForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -583,7 +674,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "BotForm";
             Text = "Bot";
-            Load += BotForm_Load;
             tabControl1.ResumeLayout(false);
             CounterTabPage.ResumeLayout(false);
             CounterTabPage.PerformLayout();
@@ -619,9 +709,6 @@
         private System.Windows.Forms.Button ResumeBossButton;
         private System.Windows.Forms.TabPage StatsTabPage;
         private System.Windows.Forms.DataGridView statsDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bossNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn deathCounterColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timerColumn;
         private System.Windows.Forms.TabPage AccountSettingTabPage;
         private System.Windows.Forms.Label TwitchAccountNameLabel;
         private System.Windows.Forms.RichTextBox TwitchAccountNameTextBox;
@@ -645,6 +732,16 @@
         private Label label3;
         private Button TurnOffBotButton;
         private Button TurnOnBotButton;
+        private RichTextBox CustomCounterTextBox;
+        private Button SaveCustomBossCounterButton;
+        private Label label6;
+        private Label label5;
+        private Button SaveCustomCounterButton;
+        private Label label4;
+        private RichTextBox CustomBossCounterTextBox;
+        private Button DeleteBossStatButton;
+        private Button AddBossStatsButton;
+        private OpenFileDialog OpenAddBossStatForm;
     }
 }
 

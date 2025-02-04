@@ -2,19 +2,17 @@
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Xml.Linq;
-using TwitchBot.Modules.Commands;
-using TwitchBot.Modules.Commands.Interfaces;
-using TwitchBot.Modules.TwitchAPI.Interfaces;
-using TwitchBot.Services;
+using TwitchBot.Services.Commands.Interfaces;
+using TwitchBot.Services.TwitchAPI.Interfaces;
 using TwitchBot.ViewModels;
 using TwitchLib.Client.Events;
 using TwitchLib.Communication.Interfaces;
 
-namespace TwitchBot.Modules.TwitchAPI
+namespace TwitchBot.Services.TwitchAPI
 {
     public class TwitchCommandsHandler(IDeathCounter deathCounter, ITwitchSettingsService twitchSettingsService) : ITwitchCommandsHandler
     {
-        
+
         public void ProcessCommand(string commandText, OnMessageReceivedArgs e)
         {
             var username = e.ChatMessage.DisplayName;
@@ -60,7 +58,7 @@ namespace TwitchBot.Modules.TwitchAPI
                 }
             }
         }
-        
+
 
         private bool CheckIfUserHasPermissionToCounter(string username)
         {

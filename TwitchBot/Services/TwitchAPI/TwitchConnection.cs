@@ -1,11 +1,11 @@
-﻿using TwitchBot.Modules.TwitchAPI.Interfaces;
-using TwitchBot.Services.Form;
+﻿using TwitchBot.Services.Form;
+using TwitchBot.Services.TwitchAPI.Interfaces;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Interfaces;
 
-namespace TwitchBot.Modules.TwitchAPI
+namespace TwitchBot.Services.TwitchAPI
 {
     public class TwitchConnection : ITwitchConnection
     {
@@ -35,7 +35,7 @@ namespace TwitchBot.Modules.TwitchAPI
             {
                 if (connectionCredentials != null && !string.IsNullOrEmpty(Properties.Settings.Default.TwitchAccountName))
                 {
-                    
+
                     twitchClient.Initialize(connectionCredentials, Properties.Settings.Default.TwitchAccountName);
 
                     twitchClient.OnConnected += Client_OnConnected;

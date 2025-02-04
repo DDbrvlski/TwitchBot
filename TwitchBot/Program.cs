@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TwitchBot.Modules.Commands;
-using TwitchBot.Modules.Commands.Interfaces;
-using TwitchBot.Modules.TwitchAPI;
-using TwitchBot.Modules.TwitchAPI.Interfaces;
-using TwitchBot.Services;
+using TwitchBot.Services.Commands;
+using TwitchBot.Services.Commands.Interfaces;
 using TwitchBot.Services.Form;
-using TwitchBot.Views;
+using TwitchBot.Services.TwitchAPI;
+using TwitchBot.Services.TwitchAPI.Interfaces;
+using TwitchBot.ViewModels;
 
 namespace TwitchBot
 {
@@ -41,6 +40,7 @@ namespace TwitchBot
                     services.AddTransient<ITwitchCommands, TwitchCommands>();
                     services.AddTransient<ITwitchConnection, TwitchConnection>();
                     services.AddSingleton<FormService>();
+                    services.AddSingleton<CounterViewModel>();
                     services.AddTransient<IBotForm, BotForm>();
                     services.AddTransient<ITwitchSettingsService, TwitchSettingsService>();
 

@@ -1,6 +1,6 @@
-﻿namespace TwitchBot.ViewModels
+﻿namespace TwitchBot.Models.DTO
 {
-    public class StatsViewModel
+    public class StatsDTO
     {
         public int deathCounter { get; set; }
         public string bossName { get; set; }

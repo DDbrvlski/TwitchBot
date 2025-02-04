@@ -1,5 +1,4 @@
-﻿
-namespace TwitchBot.Services
+﻿namespace TwitchBot.Services.TwitchAPI.Interfaces
 {
     public interface ITwitchSettingsService
     {

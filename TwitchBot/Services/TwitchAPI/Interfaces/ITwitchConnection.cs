@@ -1,4 +1,4 @@
-﻿namespace TwitchBot.Modules.TwitchAPI.Interfaces
+﻿namespace TwitchBot.Services.TwitchAPI.Interfaces
 {
     public interface ITwitchConnection
     {

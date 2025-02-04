@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwitchBot.ViewModels
+namespace TwitchBot.Models.DTO
 {
     public class UserPermissions
     {

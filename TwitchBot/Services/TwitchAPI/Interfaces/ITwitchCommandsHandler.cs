@@ -1,7 +1,7 @@
 ﻿using TwitchBot.ViewModels;
 using TwitchLib.Client.Events;
 
-namespace TwitchBot.Modules.TwitchAPI.Interfaces
+namespace TwitchBot.Services.TwitchAPI.Interfaces
 {
     public interface ITwitchCommandsHandler
     {

@@ -1,9 +1,9 @@
 ﻿using System.Timers;
 using TwitchBot.Enums;
-using TwitchBot.Modules.Commands.Interfaces;
-using TwitchBot.ViewModels;
+using TwitchBot.Models.DTO;
+using TwitchBot.Services.Commands.Interfaces;
 
-namespace TwitchBot.Modules.Commands
+namespace TwitchBot.Services.Commands
 {
     public class DeathCounter : IDeathCounter
     {
@@ -28,6 +28,16 @@ namespace TwitchBot.Modules.Commands
         {
             return counter;
         }
+        public void SetCounter(int count)
+        {
+            counter = count;
+            SaveState();
+        }
+        public void SetBossCounter(int count)
+        {
+            bossDeathCounter = count;
+            SaveState();
+        }
         /// <summary>
         /// Returns a bool value that represents counter status.
         /// </summary>
@@ -39,7 +49,7 @@ namespace TwitchBot.Modules.Commands
         /// <summary>
         /// Starts a counter.
         /// </summary>
-        public void StartCounter()
+        public bool StartCounter()
         {
             try
             {
@@ -52,65 +62,94 @@ namespace TwitchBot.Modules.Commands
                     timer.Start();
                     InitializeTimer();
                 }
+                return true;
             }
             catch
             {
                 isCounterStarted = false;
             }
+            return false;
         }
         /// <summary>
         /// Stops counter.
         /// </summary>
-        public void StopCounter()
+        public bool StopCounter()
         {
-            SaveState();
-            StopTimer();
-            isCounterStarted = false;
+            try
+            {
+                SaveState();
+                StopTimer();
+                isCounterStarted = false;
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
         }
         /// <summary>
         /// Adds new death to the counter.
         /// </summary>
-        public void AddNewDeath()
+        public bool AddNewDeath()
         {
-            if (isCounterStarted)
+            try
             {
-                counter++;
-                if (bossStatus == BossStatusEnum.Active)
+                if (isCounterStarted)
                 {
-                    bossDeathCounter++;
+                    counter++;
+                    if (bossStatus == BossStatusEnum.Active)
+                    {
+                        bossDeathCounter++;
+                    }
+                    SaveState();
+                    return true;
                 }
-                SaveState();
             }
+            catch { }
+            return false;
         }
         /// <summary>
         /// Remove death from counter and boss counter if active.
         /// </summary>
-        public void RemoveDeath()
+        public bool RemoveDeath()
         {
-            if (isCounterStarted && counter > 0)
+            try
             {
-                counter--;
-                if (bossStatus == BossStatusEnum.Active && bossDeathCounter > 0)
+                if (isCounterStarted && counter > 0)
                 {
-                    bossDeathCounter--;
+                    counter--;
+                    if (bossStatus == BossStatusEnum.Active && bossDeathCounter > 0)
+                    {
+                        bossDeathCounter--;
+                    }
+                    SaveState();
+                    return true;
                 }
-                SaveState();
             }
+            catch { }
+            return false;
         }
         /// <summary>
         /// Resets all deaths.
         /// </summary>
-        public void ResetDeaths()
+        public bool ResetDeaths()
         {
-            if (isCounterStarted)
+            try
             {
-                counter = 0;
-                bossName = "";
-                seconds = 0;
-                bossDeathCounter = 0;
-                SaveState();
-                StopTimer();
+                if (isCounterStarted)
+                {
+                    counter = 0;
+                    bossName = "";
+                    seconds = 0;
+                    bossDeathCounter = 0;
+                    SaveState();
+                    StopTimer();
+                    return true;
+                }
             }
+            catch { }
+            return false;
         }
         /// <summary>
         /// Updates overlay file.
@@ -172,7 +211,7 @@ namespace TwitchBot.Modules.Commands
         /// <summary>
         /// Resume boss counter.
         /// </summary>
-        public void ResumeBossCounter()
+        public bool ResumeBossCounter()
         {
             try
             {
@@ -182,20 +221,22 @@ namespace TwitchBot.Modules.Commands
                     timer = new System.Timers.Timer(1000);
                     timer.Start();
                     InitializeTimer();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
 
             }
+            return false;
         }
         /// <summary>
         /// Starts a boss counter.
         /// </summary>
         /// <param name="bossNameT">string</param>
-        public void StartBoss(string bossNameT)
+        public bool StartBoss(string bossNameT)
         {
-            if (isCounterStarted)
+            if (isCounterStarted && bossStatus == BossStatusEnum.Nonactive)
             {
                 bossStatus = BossStatusEnum.Active;
                 bossName = bossNameT;
@@ -204,27 +245,43 @@ namespace TwitchBot.Modules.Commands
                 timer.Start();
                 InitializeTimer();
                 SaveState();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         /// <summary>
         /// Pause boss counter.
         /// </summary>
-        public void PauseBoss()
+        public bool PauseBoss()
         {
             if (isCounterStarted)
             {
                 if (bossStatus == BossStatusEnum.Active)
                 {
                     bossStatus = BossStatusEnum.Paused;
+                    try
+                    {
+                        timer.Stop();
+                        timer.Close();
+                        return true;
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
+            return false;
         }
         /// <summary>
         /// Stops boss counter.
         /// </summary>
-        public void StopBoss()
+        public bool StopBoss()
         {
-            if (isCounterStarted)
+            if (isCounterStarted && bossStatus == BossStatusEnum.Active)
             {
                 SaveStats();
                 bossStatus = BossStatusEnum.Nonactive;
@@ -233,9 +290,11 @@ namespace TwitchBot.Modules.Commands
                 seconds = 0;
                 SaveState();
                 StopTimer();
+                return true;
             }
+            return false;
         }
-        private void StopTimer()
+        private bool StopTimer()
         {
             if (bossStatus == BossStatusEnum.Active)
             {
@@ -243,37 +302,85 @@ namespace TwitchBot.Modules.Commands
                 {
                     timer.Stop();
                     timer.Close();
+                    return true;
                 }
                 catch
                 {
 
                 }
             }
+            return false;
         }
         #endregion
         #region Stats
-        public List<StatsViewModel> GetStats()
+        public List<StatsDTO> GetStats()
         {
-            var statList = new List<StatsViewModel>();
+            var statList = new List<StatsDTO>();
 
             foreach (var line in File.ReadLines(statsFilePath))
             {
                 var stats = line.Split('|');
 
-                statList.Add(new StatsViewModel
+                statList.Add(new StatsDTO
                 {
                     bossName = stats[0],
                     deathCounter = int.Parse(stats[1]),
-                    timer = TimeSpan.FromSeconds(int.Parse(stats[2])).ToString(@"hh\:mm\:ss")
+                    timer = TimeSpan.FromSeconds(int.Parse(stats[2])).TotalHours.ToString("00") + ":" + TimeSpan.FromSeconds(int.Parse(stats[2])).Minutes.ToString("00") + ":" + TimeSpan.FromSeconds(int.Parse(stats[2])).Seconds.ToString("00")
                 });
+
             }
 
             return statList;
+        }
+        public bool AddNewBossStat(string bossName, int numberOfDeaths, string bossTime)
+        {
+            var time = bossTime.Split(':');
+
+            int hours = int.Parse(time[0]);
+            int minutes = int.Parse(time[1]);
+            int seconds = int.Parse(time[2]);
+
+            
+            if (minutes > 60 || seconds > 60 || time[1].Length > 2 || time[2].Length > 2)
+            {
+                return false;
+            }
+
+            //Konwersja godzin na sekundy
+            if (hours > 0)
+            {
+                seconds += hours * 3600;
+            }
+            //Konwersja minut na sekundy
+            if (minutes > 0)
+            {
+                seconds += minutes * 60;
+            }
+
+            SaveStats(bossName, numberOfDeaths, seconds);
+
+            return true;
         }
 
         public void ResetStats()
         {
             File.WriteAllLines(deathCounterFilePath, new[] { "" });
+        }
+
+        public void RemoveBossStat(string bossName)
+        {
+            string[] lines = File.ReadAllLines(statsFilePath); // Wczytaj wszystkie linie z pliku
+            List<string> updatedLines = new List<string>();
+
+            foreach (string line in lines)
+            {
+                if (!line.StartsWith(bossName))
+                {
+                    updatedLines.Add(line);
+                }
+            }
+
+            File.WriteAllLines(statsFilePath, updatedLines);
         }
         #endregion
         #region Functions
@@ -344,6 +451,17 @@ namespace TwitchBot.Modules.Commands
         /// Saves stats to the file.
         /// </summary>
         private void SaveStats()
+        {
+            try
+            {
+                File.AppendAllText(statsFilePath, $"{bossName}|{bossDeathCounter.ToString()}|{seconds.ToString()}|" + Environment.NewLine);
+            }
+            catch
+            {
+                Console.WriteLine();
+            }
+        }
+        private void SaveStats(string bossName, int bossDeathCounter, int seconds)
         {
             try
             {

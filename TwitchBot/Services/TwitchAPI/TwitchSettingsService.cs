@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using TwitchBot.Services.TwitchAPI.Interfaces;
 using TwitchBot.ViewModels;
 
-namespace TwitchBot.Services
+namespace TwitchBot.Services.TwitchAPI
 {
     public class TwitchSettingsService : ITwitchSettingsService
     {

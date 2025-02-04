@@ -1,268 +1,228 @@
 ﻿using System.Security.Cryptography;
-using TwitchBot.Modules.Commands.Interfaces;
-using TwitchBot.Modules.TwitchAPI.Interfaces;
+using TwitchBot.Enums;
+using TwitchBot.Models.DTO;
+using TwitchBot.Services.Commands.Interfaces;
 using TwitchBot.Services.Form;
+using TwitchBot.Services.TwitchAPI.Interfaces;
+using TwitchBot.ViewModels;
 using TwitchBot.Views;
+using TwitchLib.Api.Core.Enums;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace TwitchBot
 {
     public partial class BotForm : Form, IBotForm
     {
-        private readonly IDeathCounter deathCounter;
-        private readonly ITwitchCommands twitchCommands;
-        private readonly ITwitchConnection twitchConnection;
-        private readonly FormService formService;
-        public BotForm
-            (IDeathCounter deathCounter, 
-            ITwitchCommands twitchCommands, 
-            ITwitchConnection twitchConnection, 
-            FormService formService)
+        private readonly CounterViewModel botViewModel;
+
+        public BotForm(CounterViewModel viewModel)
         {
             InitializeComponent();
-            if (deathCounter == null)
-            {
-                throw new ArgumentNullException(nameof(deathCounter), "DeathCounter nie zostało wstrzyknięte.");
-            }
-            this.twitchCommands = twitchCommands;
-            this.formService = formService;
-            formService.UpdateLogTextBox += UpdateLog;
-            this.twitchConnection = twitchConnection;
-            this.deathCounter = deathCounter;
+            botViewModel = viewModel;
+            botViewModel.UpdateLogTextBox += UpdateLog;
+            botViewModel.UpdateLabel += UpdateLabel;
             this.Text = "TwitchBot (offline)";
             LoadAllData();
         }
 
         #region Counter
-        private void StartCounterButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.StartCounter();
-            CounterStatusLabelUpdate();
-            BossStatusLabelUpdate();
-            CurrentBossLabelUpdate();
-            UpdateCounterLog("Uruchomiono licznik.");
-        }
+        private void StartCounterButton_Click(object sender, EventArgs e) =>
+            botViewModel.StartCounter();
 
-        private void StopCounterButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.StopCounter();
-            CounterStatusLabelUpdate();
-            UpdateCounterLog("Zatrzymano licznik.");
-        }
+        private void StopCounterButton_Click(object sender, EventArgs e) =>
+            botViewModel.StopCounter();
 
-        private void AddDeathButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.AddNewDeath();
-            UpdateCounterLog("Dodano śmierć.");
-        }
+        private void AddDeathButton_Click(object sender, EventArgs e) =>
+            botViewModel.AddNewDeath();
 
-        private void RemoveDeathButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.RemoveDeath();
-            UpdateCounterLog("Usunięto śmierć.");
-        }
+        private void RemoveDeathButton_Click(object sender, EventArgs e) =>
+            botViewModel.RemoveDeath();
 
-        private void ResetDeathsButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.ResetDeaths();
-            UpdateCounterLog("Zresetowano licznik.");
-        }
+        private void ResetDeathsButton_Click(object sender, EventArgs e) =>
+            botViewModel.ResetDeaths();
 
         private void StartBossButton_Click(object sender, EventArgs e)
         {
             if (BossNameTextBox.Text.Length > 0)
-            {
-                deathCounter.StartBoss(BossNameTextBox.Text);
-                CurrentBossLabelUpdate();
-                BossStatusLabelUpdate();
-                UpdateCounterLog($"Rozpoczęto licznik bossa {BossNameTextBox.Text}.");
-            }
-        }
-        private void ResumeBossButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.ResumeBossCounter();
-            CurrentBossLabelUpdate();
-            BossStatusLabelUpdate();
-            UpdateCounterLog("Wznowiono licznik boss.");
-        }
-        private void PauseBossButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.PauseBoss();
-            CurrentBossLabelUpdate();
-            BossStatusLabelUpdate();
-            UpdateCounterLog("Zatrzymano licznik bossa.");
-        }
-        private void EndBossButton_Click(object sender, EventArgs e)
-        {
-            deathCounter.StopBoss();
-            CurrentBossLabelUpdate();
-            BossStatusLabelUpdate();
-            LoadStatsData();
-            UpdateCounterLog("Zakończono licznik bossa.");
+                botViewModel.StartBoss(BossNameTextBox.Text);
+            else
+                UpdateLog("Nazwa bossa jest pusta.", LogTypeEnum.Counter);
         }
 
-        private void CounterStatusLabelUpdate()
-        {
-            if (deathCounter.CounterStatus())
-            {
-                CounterStatusLabel.Text = "Naliczanie AKTYWNE";
-                CounterStatusLabel.ForeColor = Color.Green;
-            }
-            else
-            {
-                CounterStatusLabel.Text = "Naliczanie NIEAKTYWNE";
-                CounterStatusLabel.ForeColor = Color.Red;
-            }
-        }
-        private void CurrentBossLabelUpdate()
-        {
-            var bossStatus = deathCounter.BossStatus();
-            if (bossStatus == Enums.BossStatusEnum.Active)
-            {
-                CurrentBossLabel.Text = "Aktualny boss: " + deathCounter.bossName;
-                CurrentBossLabel.ForeColor = Color.Green;
-            }
-            else if (bossStatus == Enums.BossStatusEnum.Paused)
-            {
-                CurrentBossLabel.Text = "Aktualny boss: " + deathCounter.bossName;
-                CurrentBossLabel.ForeColor = Color.Orange;
-            }
-            else
-            {
-                CurrentBossLabel.Text = "Aktualny boss: BRAK";
-                CurrentBossLabel.ForeColor = Color.Red;
-            }
-        }
-        private void BossStatusLabelUpdate()
-        {
-            var bossStatus = deathCounter.BossStatus();
-            if (bossStatus == Enums.BossStatusEnum.Active)
-            {
-                BossStatusLabel.Text = "Status bossa: AKTYWNY";
-                BossStatusLabel.ForeColor = Color.Green;
-            }
-            else if (bossStatus == Enums.BossStatusEnum.Paused)
-            {
-                BossStatusLabel.Text = "Status bossa: ZATRZYMANY";
-                BossStatusLabel.ForeColor = Color.Orange;
-            }
-            else
-            {
-                BossStatusLabel.Text = "Status bossa: NIEAKTYWNY";
-                BossStatusLabel.ForeColor = Color.Red;
-            }
-        }
+        private void ResumeBossButton_Click(object sender, EventArgs e) =>
+            botViewModel.ResumeBoss();
+
+        private void PauseBossButton_Click(object sender, EventArgs e) =>
+            botViewModel.PauseBoss();
+
+        private void EndBossButton_Click(object sender, EventArgs e) =>
+            botViewModel.EndBoss();
         #endregion
+
         #region Stats
         private void LoadStatsData()
         {
-            var stats = deathCounter.GetStats();
-            statsDataGridView.Columns["bossNameColumn"].DataPropertyName = "bossName";
-            statsDataGridView.Columns["deathCounterColumn"].DataPropertyName = "deathCounter";
-            statsDataGridView.Columns["timerColumn"].DataPropertyName = "timer";
-            statsDataGridView.DataSource = stats;
+            statsDataGridView.DataSource = null;
+            statsDataGridView.DataSource = botViewModel.Stats;
+            statsDataGridView.Columns["bossName"].HeaderText = "Nazwa Bossa";
+            statsDataGridView.Columns["deathCounter"].HeaderText = "Liczba Zgonów";
+            statsDataGridView.Columns["timer"].HeaderText = "Czas";
+
         }
         #endregion
+
         #region Commands
-        public void GetAllCommands()
-        {
-            var commands = twitchCommands.GetAllPossibleCommands();
-            CommandsDataGridView.DataSource = commands;
-        }
-        private void GetAllCounterUserPermissions()
-        {
-            var users = twitchCommands.GetAllUsersWithCounterPermissions();
-            if (!CounterUserPermissionsDataGridView.Columns.Contains("Użytkownicy"))
-            {
-                var column = new DataGridViewTextBoxColumn();
-                column.Name = "Użytkownicy";
-                column.HeaderText = "Użytkownicy";
-                CounterUserPermissionsDataGridView.Columns.Add(column);
-            }
-            CounterUserPermissionsDataGridView.Columns["Użytkownicy"].DataPropertyName = "UserName";
-            CounterUserPermissionsDataGridView.DataSource = users;
+        public void GetAllCommands() =>
+            CommandsDataGridView.DataSource = botViewModel.Commands;
 
-        }
+        private void GetAllCounterUserPermissions() =>
+            CounterUserPermissionsDataGridView.DataSource = botViewModel.UserPermissions;
         #endregion
+
         #region Connection
+        private void TurnOnBotButton_Click(object sender, EventArgs e) =>
+            botViewModel.TurnOnBot();
 
+        private void TurnOffBotButton_Click(object sender, EventArgs e) =>
+            botViewModel.TurnOffBot();
         #endregion
-        public void UpdateLog(string logMessage)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate
-                {
-                    LoggingTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
-                }));
-            }
-            else
-            {
-                LoggingTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
-            }
-        }
-        private void UpdateCounterLog(string logMessage)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate
-                {
-                    CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
-                }));
-            }
-            else
-            {
-                CounterLogsTextBox.AppendText($"[{DateTime.UtcNow.ToString("HH:mm:ss")}] " + logMessage + Environment.NewLine);
-            }
-        }
-        private void LoggingTextBox_TextChanged(object sender, EventArgs e)
-        {
 
-        }
         #region Data
         private void LoadAllData()
         {
+            botViewModel.LoadAllData();
             LoadStatsData();
-            GetAllCommands();
-            GetAllCounterUserPermissions();
         }
+
         #endregion
-        private void CounterUserPermissionsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void UpdateLog(string logMessage, LogTypeEnum logType)
         {
+            string formattedMessage = $"[{DateTime.UtcNow:HH:mm:ss}] {logMessage}";
 
-        }
-
-        private void BotForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TurnOnBotButton_Click(object sender, EventArgs e)
-        {
-            twitchConnection.Connection(true);
-
-            if (twitchConnection.IsBotConnected())
+            // Sprawdzenie, który typ logu
+            if (logType == LogTypeEnum.Counter)
             {
-                BotStatusLabel.Text = "ONLINE";
-                BotStatusLabel.ForeColor = Color.Green;
-                this.Text = "TwitchBot (online)";
+                CounterLogsTextBox.AppendText($"{formattedMessage}" + Environment.NewLine);
+            }
+            else
+            {
+                LoggingTextBox.AppendText($"{formattedMessage}" + Environment.NewLine);
             }
         }
 
-        private void TurnOffBotButton_Click(object sender, EventArgs e)
+        public void UpdateLabel(string text, Color color, LabelTextEnum label)
         {
-            twitchConnection.Disconnect();
-
-            if (!twitchConnection.IsBotConnected())
+            switch (label)
             {
-                BotStatusLabel.Text = "OFFLINE";
-                BotStatusLabel.ForeColor = Color.Red;
-                this.Text = "TwitchBot (offline)";
+                case LabelTextEnum.CounterStatus:
+                    CounterStatusLabel.Text = text;
+                    CounterStatusLabel.ForeColor = color;
+                    break;
+                case LabelTextEnum.BossStatus:
+                    BossStatusLabel.Text = text;
+                    BossStatusLabel.ForeColor = color;
+                    break;
+                case LabelTextEnum.CurrentBoss:
+                    CurrentBossLabel.Text = text;
+                    CurrentBossLabel.ForeColor = color;
+                    break;
+                case LabelTextEnum.BotStatus:
+                    BotStatusLabel.Text = text;
+                    BotStatusLabel.ForeColor = color;
+                    break;
             }
         }
-
         private void CounterLogsTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void SaveCustomCounterButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int count = int.Parse(CustomCounterTextBox.Text);
+                if (count >= 0)
+                {
+                    botViewModel.SetCounter(count);
+                }
+            }
+            catch { }
+        }
+
+        private void SaveCustomBossCounterButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int count = int.Parse(CustomBossCounterTextBox.Text);
+                if (count >= 0)
+                {
+                    botViewModel.SetBossCounter(count);
+                }
+            }
+            catch { }
+        }
+
+
+        private void AddBossStatsButton_Click(object sender, EventArgs e)
+        {
+            AddBossStatForm dialog = new AddBossStatForm();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string bossName = dialog.BossName;
+                int numberOfDeaths = dialog.NumberOfDeaths;
+                string bossTime = dialog.Time;
+
+                //MessageBox.Show($"Boss: {bossName}, Deaths: {numberOfDeaths}, Time: {bossTime}");
+
+                botViewModel.AddNewBossStat(bossName, numberOfDeaths, bossTime);
+                LoadStatsData();
+            }
+        }
+
+        private void OpenAddBossStatForm_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void DeleteBossStatButton_Click(object sender, EventArgs e)
+        {
+            // Upewnij się, że coś jest zaznaczone
+            if (statsDataGridView.SelectedRows.Count > 0)
+            {
+                // Pobierz indeks zaznaczonego wiersza
+                var selectedRowIndex = statsDataGridView.SelectedRows[0].Index;
+
+                // Pobierz dane z zaznaczonego wiersza (np. bossName, deathCounter, timer)
+                string bossName = statsDataGridView.SelectedRows[0].Cells["bossName"].Value.ToString();
+
+                // Wyświetl okno dialogowe z pytaniem o potwierdzenie
+                var result = MessageBox.Show("Czy na pewno chcesz usunąć tego bossa?", "Potwierdzenie", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                // Jeśli użytkownik kliknie "Yes", usuwamy wiersz
+                if (result == DialogResult.Yes)
+                {
+                    botViewModel.RemoveBossStat(bossName);
+                    LoadStatsData();
+                    MessageBox.Show("Boss został usunięty.", "Sukces", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("Usuwanie zostało anulowane.", "Anulowane", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Proszę wybrać wiersz do usunięcia.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void statsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
+
 }
