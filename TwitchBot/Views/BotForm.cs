@@ -14,13 +14,15 @@ namespace TwitchBot
     public partial class BotForm : Form, IBotForm
     {
         private readonly CounterViewModel botViewModel;
+        private readonly SettingsViewModel settingsViewModel;
 
-        public BotForm(CounterViewModel viewModel)
+        public BotForm(CounterViewModel viewModel, SettingsViewModel sviewModel)
         {
             InitializeComponent();
             botViewModel = viewModel;
             botViewModel.UpdateLogTextBox += UpdateLog;
             botViewModel.UpdateLabel += UpdateLabel;
+            settingsViewModel = sviewModel;
             this.Text = "TwitchBot (offline)";
             LoadAllData();
         }
@@ -92,6 +94,7 @@ namespace TwitchBot
         {
             botViewModel.LoadAllData();
             LoadStatsData();
+            LoadPanelSettingsData();
         }
 
         #endregion
@@ -222,6 +225,44 @@ namespace TwitchBot
         private void statsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void SaveSettings_Click(object sender, EventArgs e)
+        {
+            PanelSettingsDTO panelSettingsDTO = new PanelSettingsDTO()
+            {
+                twitchChannelName = TwitchAccountNameTextBox.Text,
+                botClientID = TwitchBotClientIDTextBox.Text,
+                botToken = TwitchBotTokenTextBox.Text
+            };
+
+            settingsViewModel.SavePanelData(panelSettingsDTO);
+        }
+
+        private void LoadPanelSettingsData()
+        {
+            var settings = settingsViewModel.GetPanelSettings();
+
+            TwitchAccountNameTextBox.Text = settings.twitchChannelName;
+            TwitchBotClientIDTextBox.Text = settings.botClientID;
+            TwitchBotTokenTextBox.Text = settings.botToken;
+        }
+
+        private void ExportTxtButton_Click(object sender, EventArgs e)
+        {
+            // Utwórz i skonfiguruj SaveFileDialog
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Pliki tekstowe (*.txt)|*.txt|Dokumenty Word (*.docx)|*.docx|Wszystkie pliki (*.*)|*.*";
+            saveFileDialog.Title = "Wybierz miejsce zapisu pliku";
+
+            // Pokaż okno dialogowe i sprawdź, czy użytkownik wybrał miejsce i kliknął "Zapisz"
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Tutaj możesz zapisać plik do wybranej lokalizacji
+                string filePath = saveFileDialog.FileName;
+                botViewModel.ExportBossStats(filePath);
+                MessageBox.Show($"Plik zapisany jako: {filePath}");
+            }
         }
     }
 

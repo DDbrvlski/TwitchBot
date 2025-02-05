@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TwitchBot.Enums;
 using TwitchBot.Models.DTO;
 using TwitchBot.Services.Commands.Interfaces;
+using TwitchBot.Services.FileHandlers.Interfaces;
 using TwitchBot.Services.TwitchAPI;
 using TwitchBot.Services.TwitchAPI.Interfaces;
 
@@ -18,14 +19,16 @@ namespace TwitchBot.ViewModels
         private readonly IDeathCounter deathCounter;
         private readonly ITwitchCommands twitchCommands;
         private readonly ITwitchConnection twitchConnection;
+        private readonly IDataExport dataExport;
 
         
 
-        public CounterViewModel(IDeathCounter deathCounter, ITwitchCommands twitchCommands, ITwitchConnection twitchConnection)
+        public CounterViewModel(IDeathCounter deathCounter, ITwitchCommands twitchCommands, ITwitchConnection twitchConnection, IDataExport dataExport)
         {
             this.deathCounter = deathCounter ?? throw new ArgumentNullException(nameof(deathCounter), "DeathCounter nie zostało wstrzyknięte.");
             this.twitchCommands = twitchCommands;
             this.twitchConnection = twitchConnection;
+            this.dataExport = dataExport;
         }
 
         #region Counter
@@ -185,7 +188,7 @@ namespace TwitchBot.ViewModels
             if (twitchConnection.IsBotConnected())
             {
                 UpdateLog("Bot jest ONLINE", LogTypeEnum.Application);
-                UpdateStatusLabel("Bot ONLINE", Color.Green, LabelTextEnum.BotStatus);
+                UpdateStatusLabel("ONLINE", Color.Green, LabelTextEnum.BotStatus);
             }
         }
 
@@ -195,7 +198,7 @@ namespace TwitchBot.ViewModels
             if (!twitchConnection.IsBotConnected())
             {
                 UpdateLog("Bot jest OFFLINE", LogTypeEnum.Application);
-                UpdateStatusLabel("Bot OFFLINE", Color.Red, LabelTextEnum.BotStatus);
+                UpdateStatusLabel("OFFLINE", Color.Red, LabelTextEnum.BotStatus);
             }
         }
         #endregion
@@ -214,6 +217,10 @@ namespace TwitchBot.ViewModels
         public void RemoveBossStat(string bossName)
         {
             deathCounter.RemoveBossStat(bossName);
+        }
+        public void ExportBossStats(string filePath)
+        {
+            dataExport.ExportBossStatsToTxt(filePath, deathCounter.GetStats());
         }
     }
 

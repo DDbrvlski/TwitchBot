@@ -52,6 +52,7 @@
             StopCounterButton = new Button();
             StartCounterButton = new Button();
             StatsTabPage = new TabPage();
+            ExportTxtButton = new Button();
             DeleteBossStatButton = new Button();
             AddBossStatsButton = new Button();
             statsDataGridView = new DataGridView();
@@ -66,10 +67,8 @@
             CommandsTabPage = new TabPage();
             AddUserPermissionButton = new Button();
             AddCommandButton = new Button();
-            SaveUserPermissionsButton = new Button();
             CounterUserPermissionsDataGridView = new DataGridView();
             CommandsDataGridView = new DataGridView();
-            SaveCommandsButton = new Button();
             LogsTabPage = new TabPage();
             LoggingTextBox = new RichTextBox();
             ActivationTabPage = new TabPage();
@@ -78,6 +77,9 @@
             TurnOffBotButton = new Button();
             TurnOnBotButton = new Button();
             OpenAddBossStatForm = new OpenFileDialog();
+            ModifyBossStatButton = new Button();
+            DeleteUserPermissionsButton = new Button();
+            DeleteCommandButton = new Button();
             tabControl1.SuspendLayout();
             CounterTabPage.SuspendLayout();
             StatsTabPage.SuspendLayout();
@@ -140,10 +142,10 @@
             // SaveCustomBossCounterButton
             // 
             SaveCustomBossCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            SaveCustomBossCounterButton.Location = new Point(192, 397);
+            SaveCustomBossCounterButton.Location = new Point(210, 251);
             SaveCustomBossCounterButton.Margin = new Padding(3, 4, 3, 4);
             SaveCustomBossCounterButton.Name = "SaveCustomBossCounterButton";
-            SaveCustomBossCounterButton.Size = new Size(81, 36);
+            SaveCustomBossCounterButton.Size = new Size(81, 32);
             SaveCustomBossCounterButton.TabIndex = 20;
             SaveCustomBossCounterButton.Text = "Zapisz";
             SaveCustomBossCounterButton.UseVisualStyleBackColor = true;
@@ -154,7 +156,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             label6.ForeColor = Color.Black;
-            label6.Location = new Point(16, 400);
+            label6.Location = new Point(16, 261);
             label6.Name = "label6";
             label6.Size = new Size(73, 20);
             label6.TabIndex = 19;
@@ -165,7 +167,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(16, 357);
+            label5.Location = new Point(16, 223);
             label5.Name = "label5";
             label5.Size = new Size(90, 20);
             label5.TabIndex = 18;
@@ -174,10 +176,10 @@
             // SaveCustomCounterButton
             // 
             SaveCustomCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            SaveCustomCounterButton.Location = new Point(192, 348);
+            SaveCustomCounterButton.Location = new Point(210, 214);
             SaveCustomCounterButton.Margin = new Padding(3, 4, 3, 4);
             SaveCustomCounterButton.Name = "SaveCustomCounterButton";
-            SaveCustomCounterButton.Size = new Size(81, 36);
+            SaveCustomCounterButton.Size = new Size(81, 29);
             SaveCustomCounterButton.TabIndex = 17;
             SaveCustomCounterButton.Text = "Zapisz";
             SaveCustomCounterButton.UseVisualStyleBackColor = true;
@@ -188,7 +190,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(16, 304);
+            label4.Location = new Point(16, 173);
             label4.Name = "label4";
             label4.Size = new Size(217, 20);
             label4.TabIndex = 16;
@@ -196,28 +198,28 @@
             // 
             // CustomBossCounterTextBox
             // 
-            CustomBossCounterTextBox.Location = new Point(112, 397);
+            CustomBossCounterTextBox.Location = new Point(125, 220);
             CustomBossCounterTextBox.Margin = new Padding(3, 4, 3, 4);
             CustomBossCounterTextBox.Name = "CustomBossCounterTextBox";
-            CustomBossCounterTextBox.Size = new Size(64, 36);
+            CustomBossCounterTextBox.Size = new Size(53, 25);
             CustomBossCounterTextBox.TabIndex = 15;
             CustomBossCounterTextBox.Text = "0";
             // 
             // CustomCounterTextBox
             // 
-            CustomCounterTextBox.Location = new Point(112, 348);
+            CustomCounterTextBox.Location = new Point(125, 258);
             CustomCounterTextBox.Margin = new Padding(3, 4, 3, 4);
             CustomCounterTextBox.Name = "CustomCounterTextBox";
-            CustomCounterTextBox.Size = new Size(64, 36);
+            CustomCounterTextBox.Size = new Size(53, 25);
             CustomCounterTextBox.TabIndex = 14;
             CustomCounterTextBox.Text = "0";
             // 
             // CounterLogsTextBox
             // 
-            CounterLogsTextBox.Location = new Point(341, 21);
+            CounterLogsTextBox.Location = new Point(16, 334);
             CounterLogsTextBox.Margin = new Padding(3, 4, 3, 4);
             CounterLogsTextBox.Name = "CounterLogsTextBox";
-            CounterLogsTextBox.Size = new Size(421, 166);
+            CounterLogsTextBox.Size = new Size(348, 166);
             CounterLogsTextBox.TabIndex = 13;
             CounterLogsTextBox.Text = "";
             CounterLogsTextBox.TextChanged += CounterLogsTextBox_TextChanged;
@@ -225,7 +227,7 @@
             // ResumeBossButton
             // 
             ResumeBossButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            ResumeBossButton.Location = new Point(416, 274);
+            ResumeBossButton.Location = new Point(598, 79);
             ResumeBossButton.Margin = new Padding(3, 4, 3, 4);
             ResumeBossButton.Name = "ResumeBossButton";
             ResumeBossButton.Size = new Size(164, 50);
@@ -237,10 +239,10 @@
             // ResetDeathsButton
             // 
             ResetDeathsButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            ResetDeathsButton.Location = new Point(16, 179);
+            ResetDeathsButton.Location = new Point(261, 23);
             ResetDeathsButton.Margin = new Padding(3, 4, 3, 4);
             ResetDeathsButton.Name = "ResetDeathsButton";
-            ResetDeathsButton.Size = new Size(103, 56);
+            ResetDeathsButton.Size = new Size(103, 49);
             ResetDeathsButton.TabIndex = 11;
             ResetDeathsButton.Text = "Reset";
             ResetDeathsButton.UseVisualStyleBackColor = true;
@@ -249,7 +251,7 @@
             // RemoveDeathButton
             // 
             RemoveDeathButton.Font = new Font("Microsoft Sans Serif", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            RemoveDeathButton.Location = new Point(168, 96);
+            RemoveDeathButton.Location = new Point(122, 98);
             RemoveDeathButton.Margin = new Padding(3, 4, 3, 4);
             RemoveDeathButton.Name = "RemoveDeathButton";
             RemoveDeathButton.Size = new Size(65, 50);
@@ -261,7 +263,7 @@
             // AddDeathButton
             // 
             AddDeathButton.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            AddDeathButton.Location = new Point(33, 98);
+            AddDeathButton.Location = new Point(16, 98);
             AddDeathButton.Margin = new Padding(3, 4, 3, 4);
             AddDeathButton.Name = "AddDeathButton";
             AddDeathButton.Size = new Size(73, 50);
@@ -286,7 +288,7 @@
             CurrentBossLabel.AutoSize = true;
             CurrentBossLabel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             CurrentBossLabel.ForeColor = Color.Red;
-            CurrentBossLabel.Location = new Point(414, 426);
+            CurrentBossLabel.Location = new Point(414, 420);
             CurrentBossLabel.Name = "CurrentBossLabel";
             CurrentBossLabel.Size = new Size(177, 20);
             CurrentBossLabel.TabIndex = 7;
@@ -297,7 +299,7 @@
             CounterStatusLabel.AutoSize = true;
             CounterStatusLabel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             CounterStatusLabel.ForeColor = Color.Red;
-            CounterStatusLabel.Location = new Point(16, 478);
+            CounterStatusLabel.Location = new Point(418, 379);
             CounterStatusLabel.Name = "CounterStatusLabel";
             CounterStatusLabel.Size = new Size(195, 20);
             CounterStatusLabel.TabIndex = 6;
@@ -306,7 +308,7 @@
             // EndBossButton
             // 
             EndBossButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            EndBossButton.Location = new Point(598, 348);
+            EndBossButton.Location = new Point(598, 143);
             EndBossButton.Margin = new Padding(3, 4, 3, 4);
             EndBossButton.Name = "EndBossButton";
             EndBossButton.Size = new Size(164, 50);
@@ -318,7 +320,7 @@
             // PauseBossButton
             // 
             PauseBossButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            PauseBossButton.Location = new Point(416, 348);
+            PauseBossButton.Location = new Point(416, 143);
             PauseBossButton.Margin = new Padding(3, 4, 3, 4);
             PauseBossButton.Name = "PauseBossButton";
             PauseBossButton.Size = new Size(164, 50);
@@ -329,7 +331,7 @@
             // 
             // BossNameTextBox
             // 
-            BossNameTextBox.Location = new Point(418, 208);
+            BossNameTextBox.Location = new Point(418, 23);
             BossNameTextBox.Margin = new Padding(3, 4, 3, 4);
             BossNameTextBox.Name = "BossNameTextBox";
             BossNameTextBox.Size = new Size(344, 36);
@@ -339,7 +341,7 @@
             // StartBossButton
             // 
             StartBossButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            StartBossButton.Location = new Point(598, 274);
+            StartBossButton.Location = new Point(418, 79);
             StartBossButton.Margin = new Padding(3, 4, 3, 4);
             StartBossButton.Name = "StartBossButton";
             StartBossButton.Size = new Size(164, 50);
@@ -351,7 +353,7 @@
             // StopCounterButton
             // 
             StopCounterButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            StopCounterButton.Location = new Point(146, 23);
+            StopCounterButton.Location = new Point(130, 22);
             StopCounterButton.Margin = new Padding(3, 4, 3, 4);
             StopCounterButton.Name = "StopCounterButton";
             StopCounterButton.Size = new Size(103, 49);
@@ -374,6 +376,8 @@
             // 
             // StatsTabPage
             // 
+            StatsTabPage.Controls.Add(ModifyBossStatButton);
+            StatsTabPage.Controls.Add(ExportTxtButton);
             StatsTabPage.Controls.Add(DeleteBossStatButton);
             StatsTabPage.Controls.Add(AddBossStatsButton);
             StatsTabPage.Controls.Add(statsDataGridView);
@@ -385,9 +389,21 @@
             StatsTabPage.Text = "Stats";
             StatsTabPage.UseVisualStyleBackColor = true;
             // 
+            // ExportTxtButton
+            // 
+            ExportTxtButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            ExportTxtButton.Location = new Point(631, 471);
+            ExportTxtButton.Margin = new Padding(3, 4, 3, 4);
+            ExportTxtButton.Name = "ExportTxtButton";
+            ExportTxtButton.Size = new Size(151, 43);
+            ExportTxtButton.TabIndex = 22;
+            ExportTxtButton.Text = "Eksportuj do txt";
+            ExportTxtButton.UseVisualStyleBackColor = true;
+            ExportTxtButton.Click += ExportTxtButton_Click;
+            // 
             // DeleteBossStatButton
             // 
-            DeleteBossStatButton.Location = new Point(173, 470);
+            DeleteBossStatButton.Location = new Point(345, 470);
             DeleteBossStatButton.Name = "DeleteBossStatButton";
             DeleteBossStatButton.Size = new Size(124, 44);
             DeleteBossStatButton.TabIndex = 2;
@@ -444,6 +460,7 @@
             SaveSettings.TabIndex = 6;
             SaveSettings.Text = "Zapisz ustawienia";
             SaveSettings.UseVisualStyleBackColor = true;
+            SaveSettings.Click += SaveSettings_Click;
             // 
             // TwitchBotTokenTextBox
             // 
@@ -504,12 +521,12 @@
             // 
             // CommandsTabPage
             // 
+            CommandsTabPage.Controls.Add(DeleteCommandButton);
+            CommandsTabPage.Controls.Add(DeleteUserPermissionsButton);
             CommandsTabPage.Controls.Add(AddUserPermissionButton);
             CommandsTabPage.Controls.Add(AddCommandButton);
-            CommandsTabPage.Controls.Add(SaveUserPermissionsButton);
             CommandsTabPage.Controls.Add(CounterUserPermissionsDataGridView);
             CommandsTabPage.Controls.Add(CommandsDataGridView);
-            CommandsTabPage.Controls.Add(SaveCommandsButton);
             CommandsTabPage.Location = new Point(4, 29);
             CommandsTabPage.Margin = new Padding(3, 4, 3, 4);
             CommandsTabPage.Name = "CommandsTabPage";
@@ -521,7 +538,7 @@
             // AddUserPermissionButton
             // 
             AddUserPermissionButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            AddUserPermissionButton.Location = new Point(538, 454);
+            AddUserPermissionButton.Location = new Point(418, 454);
             AddUserPermissionButton.Margin = new Padding(3, 4, 3, 4);
             AddUserPermissionButton.Name = "AddUserPermissionButton";
             AddUserPermissionButton.Size = new Size(102, 41);
@@ -532,24 +549,13 @@
             // AddCommandButton
             // 
             AddCommandButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            AddCommandButton.Location = new Point(136, 454);
+            AddCommandButton.Location = new Point(18, 454);
             AddCommandButton.Margin = new Padding(3, 4, 3, 4);
             AddCommandButton.Name = "AddCommandButton";
             AddCommandButton.Size = new Size(102, 41);
             AddCommandButton.TabIndex = 6;
             AddCommandButton.Text = "Dodaj";
             AddCommandButton.UseVisualStyleBackColor = true;
-            // 
-            // SaveUserPermissionsButton
-            // 
-            SaveUserPermissionsButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            SaveUserPermissionsButton.Location = new Point(418, 454);
-            SaveUserPermissionsButton.Margin = new Padding(3, 4, 3, 4);
-            SaveUserPermissionsButton.Name = "SaveUserPermissionsButton";
-            SaveUserPermissionsButton.Size = new Size(102, 41);
-            SaveUserPermissionsButton.TabIndex = 5;
-            SaveUserPermissionsButton.Text = "Zapisz";
-            SaveUserPermissionsButton.UseVisualStyleBackColor = true;
             // 
             // CounterUserPermissionsDataGridView
             // 
@@ -572,17 +578,6 @@
             CommandsDataGridView.RowTemplate.Height = 24;
             CommandsDataGridView.Size = new Size(343, 430);
             CommandsDataGridView.TabIndex = 3;
-            // 
-            // SaveCommandsButton
-            // 
-            SaveCommandsButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            SaveCommandsButton.Location = new Point(18, 454);
-            SaveCommandsButton.Margin = new Padding(3, 4, 3, 4);
-            SaveCommandsButton.Name = "SaveCommandsButton";
-            SaveCommandsButton.Size = new Size(102, 41);
-            SaveCommandsButton.TabIndex = 2;
-            SaveCommandsButton.Text = "Zapisz";
-            SaveCommandsButton.UseVisualStyleBackColor = true;
             // 
             // LogsTabPage
             // 
@@ -665,6 +660,37 @@
             OpenAddBossStatForm.FileName = "AddBossStatForm";
             OpenAddBossStatForm.FileOk += OpenAddBossStatForm_FileOk;
             // 
+            // ModifyBossStatButton
+            // 
+            ModifyBossStatButton.Location = new Point(174, 470);
+            ModifyBossStatButton.Name = "ModifyBossStatButton";
+            ModifyBossStatButton.Size = new Size(124, 44);
+            ModifyBossStatButton.TabIndex = 23;
+            ModifyBossStatButton.Text = "Edytuj";
+            ModifyBossStatButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteUserPermissionsButton
+            // 
+            DeleteUserPermissionsButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            DeleteUserPermissionsButton.Location = new Point(659, 454);
+            DeleteUserPermissionsButton.Margin = new Padding(3, 4, 3, 4);
+            DeleteUserPermissionsButton.Name = "DeleteUserPermissionsButton";
+            DeleteUserPermissionsButton.Size = new Size(102, 41);
+            DeleteUserPermissionsButton.TabIndex = 8;
+            DeleteUserPermissionsButton.Text = "Usuń";
+            DeleteUserPermissionsButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteCommandButton
+            // 
+            DeleteCommandButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            DeleteCommandButton.Location = new Point(259, 454);
+            DeleteCommandButton.Margin = new Padding(3, 4, 3, 4);
+            DeleteCommandButton.Name = "DeleteCommandButton";
+            DeleteCommandButton.Size = new Size(102, 41);
+            DeleteCommandButton.TabIndex = 9;
+            DeleteCommandButton.Text = "Usuń";
+            DeleteCommandButton.UseVisualStyleBackColor = true;
+            // 
             // BotForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -719,10 +745,8 @@
         private System.Windows.Forms.Button SaveSettings;
         private System.Windows.Forms.TabPage CommandsTabPage;
         private System.Windows.Forms.DataGridView CommandsDataGridView;
-        private System.Windows.Forms.Button SaveCommandsButton;
         private System.Windows.Forms.TabPage LogsTabPage;
         private System.Windows.Forms.RichTextBox LoggingTextBox;
-        private Button SaveUserPermissionsButton;
         private DataGridView CounterUserPermissionsDataGridView;
         private Button AddCommandButton;
         private Button AddUserPermissionButton;
@@ -742,6 +766,10 @@
         private Button DeleteBossStatButton;
         private Button AddBossStatsButton;
         private OpenFileDialog OpenAddBossStatForm;
+        private Button ExportTxtButton;
+        private Button ModifyBossStatButton;
+        private Button DeleteUserPermissionsButton;
+        private Button DeleteCommandButton;
     }
 }
 

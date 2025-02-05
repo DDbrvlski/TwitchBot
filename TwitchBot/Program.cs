@@ -2,7 +2,11 @@
 using Microsoft.Extensions.Hosting;
 using TwitchBot.Services.Commands;
 using TwitchBot.Services.Commands.Interfaces;
+using TwitchBot.Services.FileHandlers;
+using TwitchBot.Services.FileHandlers.Interfaces;
 using TwitchBot.Services.Form;
+using TwitchBot.Services.Settings;
+using TwitchBot.Services.Settings.Interfaces;
 using TwitchBot.Services.TwitchAPI;
 using TwitchBot.Services.TwitchAPI.Interfaces;
 using TwitchBot.ViewModels;
@@ -41,7 +45,10 @@ namespace TwitchBot
                     services.AddTransient<ITwitchConnection, TwitchConnection>();
                     services.AddSingleton<FormService>();
                     services.AddSingleton<CounterViewModel>();
+                    services.AddSingleton<SettingsViewModel>();
                     services.AddTransient<IBotForm, BotForm>();
+                    services.AddTransient<IDataExport, DataExport>();
+                    services.AddTransient<IBotSettings, BotSettings>();
                     services.AddTransient<ITwitchSettingsService, TwitchSettingsService>();
 
                     // Rejestracja BotForm

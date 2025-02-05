@@ -9,7 +9,7 @@ namespace TwitchBot.Services.TwitchAPI
 {
     public class TwitchConnection : ITwitchConnection
     {
-        private readonly ConnectionCredentials connectionCredentials;
+        private ConnectionCredentials connectionCredentials;
         private readonly FormService formService;
         private readonly ITwitchCommandsHandler twitchCommands;
         private TwitchClient twitchClient;
@@ -17,22 +17,29 @@ namespace TwitchBot.Services.TwitchAPI
 
         public TwitchConnection(ITwitchCommandsHandler twitchCommands, FormService formService)
         {
-            var twitchAccountName = Properties.Settings.Default.TwitchAccountName;
-            var twitchBotToken = Properties.Settings.Default.TwitchBotToken;
-            if (!string.IsNullOrEmpty(twitchAccountName) && !string.IsNullOrEmpty(twitchBotToken))
-            {
-                connectionCredentials = new ConnectionCredentials(twitchAccountName, twitchBotToken);
-            }
-
             this.formService = formService;
             this.twitchCommands = twitchCommands;
             twitchClient = new TwitchClient();
         }
-
+        public void SetConnectionCredentials()
+        {
+            try
+            {
+                var twitchAccountName = Properties.Settings.Default.TwitchAccountName;
+                var twitchBotToken = Properties.Settings.Default.TwitchBotToken;
+                if (!string.IsNullOrEmpty(twitchAccountName) && !string.IsNullOrEmpty(twitchBotToken))
+                {
+                    connectionCredentials = new ConnectionCredentials(twitchAccountName, twitchBotToken);
+                }
+            }
+            catch { }
+        }
         public void Connection(bool isLogging)
         {
             try
             {
+                SetConnectionCredentials();
+
                 if (connectionCredentials != null && !string.IsNullOrEmpty(Properties.Settings.Default.TwitchAccountName))
                 {
 

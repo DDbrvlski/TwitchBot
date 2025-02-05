@@ -26,6 +26,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TwitchChatCommands.settings</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +41,10 @@
     <None Update="Data\TwitchChatCommands.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>TwitchChatCommands.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

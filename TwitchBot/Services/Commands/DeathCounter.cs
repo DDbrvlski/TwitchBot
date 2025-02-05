@@ -35,8 +35,11 @@ namespace TwitchBot.Services.Commands
         }
         public void SetBossCounter(int count)
         {
-            bossDeathCounter = count;
-            SaveState();
+            if(bossStatus != BossStatusEnum.Nonactive)
+            {
+                bossDeathCounter = count;
+                SaveState();
+            }
         }
         /// <summary>
         /// Returns a bool value that represents counter status.
