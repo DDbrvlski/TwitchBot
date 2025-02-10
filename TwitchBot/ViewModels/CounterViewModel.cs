@@ -16,7 +16,7 @@ namespace TwitchBot.ViewModels
 {
     public class CounterViewModel : BotFormViewModel
     {
-        private readonly IDeathCounter deathCounter;
+        public IDeathCounter deathCounter;
         private readonly ITwitchCommands twitchCommands;
         private readonly ITwitchConnection twitchConnection;
         private readonly IDataExport dataExport;
@@ -41,8 +41,8 @@ namespace TwitchBot.ViewModels
             _ => "Status bossa: NIEAKTYWNY"
         };
 
-        public IEnumerable<SettingDTO> Commands => twitchCommands.GetAllPossibleCommands();
-        public IEnumerable<UserPermissions> UserPermissions => twitchCommands.GetAllUsersWithCounterPermissions();
+        public IEnumerable<CommandDTO> Commands => twitchCommands.GetAllPossibleCommands();
+        public UserPermissionsDTO UserPermissions => twitchCommands.GetAllUsersWithCounterPermissions();
         public IEnumerable<StatsDTO> Stats => deathCounter.GetStats();
         #endregion
 

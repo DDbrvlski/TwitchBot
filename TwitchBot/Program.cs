@@ -45,11 +45,11 @@ namespace TwitchBot
                     services.AddTransient<ITwitchConnection, TwitchConnection>();
                     services.AddSingleton<FormService>();
                     services.AddSingleton<CounterViewModel>();
-                    services.AddSingleton<SettingsViewModel>();
+                    services.AddSingleton<DataViewModel>();
                     services.AddTransient<IBotForm, BotForm>();
                     services.AddTransient<IDataExport, DataExport>();
                     services.AddTransient<IBotSettings, BotSettings>();
-                    services.AddTransient<ITwitchSettingsService, TwitchSettingsService>();
+                    services.AddTransient<ITwitchDataService, TwitchDataService>();
 
                     // Rejestracja BotForm
                     services.AddTransient<BotForm>(); // Rejestracja samego BotForm

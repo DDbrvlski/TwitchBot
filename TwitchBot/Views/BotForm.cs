@@ -14,14 +14,15 @@ namespace TwitchBot
     public partial class BotForm : Form, IBotForm
     {
         private readonly CounterViewModel botViewModel;
-        private readonly SettingsViewModel settingsViewModel;
+        private readonly DataViewModel settingsViewModel;
 
-        public BotForm(CounterViewModel viewModel, SettingsViewModel sviewModel)
+        public BotForm(CounterViewModel viewModel, DataViewModel sviewModel)
         {
             InitializeComponent();
             botViewModel = viewModel;
             botViewModel.UpdateLogTextBox += UpdateLog;
             botViewModel.UpdateLabel += UpdateLabel;
+            botViewModel.deathCounter.UpdateLogTextBoxDebug += UpdateLogDebug;
             settingsViewModel = sviewModel;
             this.Text = "TwitchBot (offline)";
             LoadAllData();
@@ -74,11 +75,45 @@ namespace TwitchBot
         #endregion
 
         #region Commands
-        public void GetAllCommands() =>
+        public void GetAllCommands()
+        {
+            CommandsDataGridView.DataSource = null; 
             CommandsDataGridView.DataSource = botViewModel.Commands;
+            CommandsDataGridView.AutoGenerateColumns = false;
+            CommandsDataGridView.Columns["key"].HeaderText = "Komenda";
+            CommandsDataGridView.Columns["category"].HeaderText = "Kategoria";
+            CommandsDataGridView.Columns["description_pl"].HeaderText = "Opis";
+            if (CommandsDataGridView.Columns.Contains("description_eng"))
+            {
+                CommandsDataGridView.Columns.Remove("description_eng");
+            }
+        }
 
-        private void GetAllCounterUserPermissions() =>
-            CounterUserPermissionsDataGridView.DataSource = botViewModel.UserPermissions;
+        public void GetAllCounterUserPermissions()
+        {
+            CounterUserPermissionsDataGridView.DataSource = null;
+            var users = botViewModel.UserPermissions;
+            var displayList = new List<dynamic>();
+            
+            foreach (var userPermission in users.Categories)
+            {
+                foreach (var user in userPermission.Value)
+                {
+                    displayList.Add(new
+                    {
+                        Category = userPermission.Key,
+                        User = user
+                    });
+                }
+            }
+            
+            CounterUserPermissionsDataGridView.DataSource = displayList;
+
+            CounterUserPermissionsDataGridView.AutoGenerateColumns = false;
+
+            CounterUserPermissionsDataGridView.Columns["Category"].HeaderText = "Kategoria";
+            CounterUserPermissionsDataGridView.Columns["User"].HeaderText = "Użytkownik";
+        }
         #endregion
 
         #region Connection
@@ -93,6 +128,8 @@ namespace TwitchBot
         private void LoadAllData()
         {
             botViewModel.LoadAllData();
+            GetAllCommands();
+            GetAllCounterUserPermissions();
             LoadStatsData();
             LoadPanelSettingsData();
         }
@@ -111,6 +148,24 @@ namespace TwitchBot
             else
             {
                 LoggingTextBox.AppendText($"{formattedMessage}" + Environment.NewLine);
+            }
+        }
+        private void UpdateLogDebug(string logMessage, LogTypeEnum logType)
+        {
+            string formattedMessage = $"[{DateTime.UtcNow:HH:mm:ss}] {logMessage}";
+            if (DebugTextBox.InvokeRequired)
+            {
+                // Używamy Invoke, aby wykonać aktualizację w wątku UI
+                DebugTextBox.Invoke(new Action(() =>
+                {
+                    // Tutaj aktualizujemy TextBox
+                    DebugTextBox.AppendText($"{logMessage}" + Environment.NewLine);
+                }));
+            }
+            else
+            {
+                // Jeśli już jesteśmy w wątku UI, możemy bezpośrednio zaktualizować kontrolkę
+                DebugTextBox.AppendText($"Timer Debug Error");
             }
         }
 
@@ -229,7 +284,7 @@ namespace TwitchBot
 
         private void SaveSettings_Click(object sender, EventArgs e)
         {
-            PanelSettingsDTO panelSettingsDTO = new PanelSettingsDTO()
+            PanelDataDTO panelSettingsDTO = new PanelDataDTO()
             {
                 twitchChannelName = TwitchAccountNameTextBox.Text,
                 botClientID = TwitchBotClientIDTextBox.Text,
@@ -237,6 +292,7 @@ namespace TwitchBot
             };
 
             settingsViewModel.SavePanelData(panelSettingsDTO);
+            MessageBox.Show("Zapisano zmiany");
         }
 
         private void LoadPanelSettingsData()

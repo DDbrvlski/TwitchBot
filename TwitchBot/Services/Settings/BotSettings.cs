@@ -10,7 +10,7 @@ namespace TwitchBot.Services.Settings
 {
     public class BotSettings : IBotSettings
     {
-        public void SavePanelData(PanelSettingsDTO panelSettings)
+        public void SavePanelData(PanelDataDTO panelSettings)
         {
             Properties.Settings.Default.TwitchAccountName = panelSettings.twitchChannelName;
             Properties.Settings.Default.TwitchBotCliendID = panelSettings.botClientID;
@@ -19,9 +19,9 @@ namespace TwitchBot.Services.Settings
             Properties.Settings.Default.Save();
         }
 
-        public PanelSettingsDTO GetPanelData()
+        public PanelDataDTO GetPanelData()
         {
-            return new PanelSettingsDTO
+            return new PanelDataDTO
             {
                 twitchChannelName = Properties.Settings.Default.TwitchAccountName,
                 botClientID = Properties.Settings.Default.TwitchBotCliendID,

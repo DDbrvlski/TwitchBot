@@ -4,7 +4,7 @@ namespace TwitchBot.Services.Settings.Interfaces
 {
     public interface IBotSettings
     {
-        void SavePanelData(PanelSettingsDTO panelSettings);
-        PanelSettingsDTO GetPanelData();
+        void SavePanelData(PanelDataDTO panelSettings);
+        PanelDataDTO GetPanelData();
     }
 }

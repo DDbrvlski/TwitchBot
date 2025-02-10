@@ -2,3 +2,15 @@ Margit|16|29|
 tree|5|4|
 TESTOWNIK|9348|106232|
 pop|322|367323|
+test|0|8|
+test|0|1|
+test|0|2|
+test|0|9|
+test|0|1|
+test|0|5|
+awafw|0|5|
+test|0|10|
+test|0|11|
+gesggd|0|10|
+fdh|0|8|
+sfsdf|0|17|

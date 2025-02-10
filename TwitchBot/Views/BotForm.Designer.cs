@@ -52,6 +52,7 @@
             StopCounterButton = new Button();
             StartCounterButton = new Button();
             StatsTabPage = new TabPage();
+            ModifyBossStatButton = new Button();
             ExportTxtButton = new Button();
             DeleteBossStatButton = new Button();
             AddBossStatsButton = new Button();
@@ -65,6 +66,8 @@
             TwitchAccountNameTextBox = new RichTextBox();
             TwitchAccountNameLabel = new Label();
             CommandsTabPage = new TabPage();
+            DeleteCommandButton = new Button();
+            DeleteUserPermissionsButton = new Button();
             AddUserPermissionButton = new Button();
             AddCommandButton = new Button();
             CounterUserPermissionsDataGridView = new DataGridView();
@@ -77,9 +80,8 @@
             TurnOffBotButton = new Button();
             TurnOnBotButton = new Button();
             OpenAddBossStatForm = new OpenFileDialog();
-            ModifyBossStatButton = new Button();
-            DeleteUserPermissionsButton = new Button();
-            DeleteCommandButton = new Button();
+            DebugTabPage = new TabPage();
+            DebugTextBox = new RichTextBox();
             tabControl1.SuspendLayout();
             CounterTabPage.SuspendLayout();
             StatsTabPage.SuspendLayout();
@@ -90,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)CommandsDataGridView).BeginInit();
             LogsTabPage.SuspendLayout();
             ActivationTabPage.SuspendLayout();
+            DebugTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -100,6 +103,7 @@
             tabControl1.Controls.Add(CommandsTabPage);
             tabControl1.Controls.Add(LogsTabPage);
             tabControl1.Controls.Add(ActivationTabPage);
+            tabControl1.Controls.Add(DebugTabPage);
             tabControl1.Location = new Point(5, 6);
             tabControl1.Margin = new Padding(3, 4, 3, 4);
             tabControl1.Name = "tabControl1";
@@ -389,6 +393,15 @@
             StatsTabPage.Text = "Stats";
             StatsTabPage.UseVisualStyleBackColor = true;
             // 
+            // ModifyBossStatButton
+            // 
+            ModifyBossStatButton.Location = new Point(174, 470);
+            ModifyBossStatButton.Name = "ModifyBossStatButton";
+            ModifyBossStatButton.Size = new Size(124, 44);
+            ModifyBossStatButton.TabIndex = 23;
+            ModifyBossStatButton.Text = "Edytuj";
+            ModifyBossStatButton.UseVisualStyleBackColor = true;
+            // 
             // ExportTxtButton
             // 
             ExportTxtButton.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -535,6 +548,28 @@
             CommandsTabPage.Text = "Komendy";
             CommandsTabPage.UseVisualStyleBackColor = true;
             // 
+            // DeleteCommandButton
+            // 
+            DeleteCommandButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            DeleteCommandButton.Location = new Point(259, 454);
+            DeleteCommandButton.Margin = new Padding(3, 4, 3, 4);
+            DeleteCommandButton.Name = "DeleteCommandButton";
+            DeleteCommandButton.Size = new Size(102, 41);
+            DeleteCommandButton.TabIndex = 9;
+            DeleteCommandButton.Text = "Usuń";
+            DeleteCommandButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteUserPermissionsButton
+            // 
+            DeleteUserPermissionsButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            DeleteUserPermissionsButton.Location = new Point(659, 454);
+            DeleteUserPermissionsButton.Margin = new Padding(3, 4, 3, 4);
+            DeleteUserPermissionsButton.Name = "DeleteUserPermissionsButton";
+            DeleteUserPermissionsButton.Size = new Size(102, 41);
+            DeleteUserPermissionsButton.TabIndex = 8;
+            DeleteUserPermissionsButton.Text = "Usuń";
+            DeleteUserPermissionsButton.UseVisualStyleBackColor = true;
+            // 
             // AddUserPermissionButton
             // 
             AddUserPermissionButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -660,36 +695,24 @@
             OpenAddBossStatForm.FileName = "AddBossStatForm";
             OpenAddBossStatForm.FileOk += OpenAddBossStatForm_FileOk;
             // 
-            // ModifyBossStatButton
+            // DebugTabPage
             // 
-            ModifyBossStatButton.Location = new Point(174, 470);
-            ModifyBossStatButton.Name = "ModifyBossStatButton";
-            ModifyBossStatButton.Size = new Size(124, 44);
-            ModifyBossStatButton.TabIndex = 23;
-            ModifyBossStatButton.Text = "Edytuj";
-            ModifyBossStatButton.UseVisualStyleBackColor = true;
+            DebugTabPage.Controls.Add(DebugTextBox);
+            DebugTabPage.Location = new Point(4, 29);
+            DebugTabPage.Name = "DebugTabPage";
+            DebugTabPage.Size = new Size(785, 517);
+            DebugTabPage.TabIndex = 6;
+            DebugTabPage.Text = "Debug";
+            DebugTabPage.UseVisualStyleBackColor = true;
             // 
-            // DeleteUserPermissionsButton
+            // DebugTextBox
             // 
-            DeleteUserPermissionsButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            DeleteUserPermissionsButton.Location = new Point(659, 454);
-            DeleteUserPermissionsButton.Margin = new Padding(3, 4, 3, 4);
-            DeleteUserPermissionsButton.Name = "DeleteUserPermissionsButton";
-            DeleteUserPermissionsButton.Size = new Size(102, 41);
-            DeleteUserPermissionsButton.TabIndex = 8;
-            DeleteUserPermissionsButton.Text = "Usuń";
-            DeleteUserPermissionsButton.UseVisualStyleBackColor = true;
-            // 
-            // DeleteCommandButton
-            // 
-            DeleteCommandButton.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            DeleteCommandButton.Location = new Point(259, 454);
-            DeleteCommandButton.Margin = new Padding(3, 4, 3, 4);
-            DeleteCommandButton.Name = "DeleteCommandButton";
-            DeleteCommandButton.Size = new Size(102, 41);
-            DeleteCommandButton.TabIndex = 9;
-            DeleteCommandButton.Text = "Usuń";
-            DeleteCommandButton.UseVisualStyleBackColor = true;
+            DebugTextBox.Location = new Point(3, 6);
+            DebugTextBox.Margin = new Padding(3, 4, 3, 4);
+            DebugTextBox.Name = "DebugTextBox";
+            DebugTextBox.Size = new Size(779, 505);
+            DebugTextBox.TabIndex = 1;
+            DebugTextBox.Text = "";
             // 
             // BotForm
             // 
@@ -713,6 +736,7 @@
             LogsTabPage.ResumeLayout(false);
             ActivationTabPage.ResumeLayout(false);
             ActivationTabPage.PerformLayout();
+            DebugTabPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -770,6 +794,8 @@
         private Button ModifyBossStatButton;
         private Button DeleteUserPermissionsButton;
         private Button DeleteCommandButton;
+        private TabPage DebugTabPage;
+        private RichTextBox DebugTextBox;
     }
 }
 

@@ -1,0 +1,44 @@
+﻿{
+  "startsWith": {
+    "Key": "!",
+    "Category": "deathCounter",
+    "Description_PL": "Każda komenda jest rozpoznawana przez ten znak.",
+    "Description_ENG": "Every command is being recognized by this character."
+  },
+  "addDeath": {
+    "Key": "add",
+    "Category": "deathCounter",
+    "Description_PL": "Dodaje nową śmierć.",
+    "Description_ENG": "Adds a new death."
+  },
+  "minusDeath": {
+    "Key": "minus",
+    "Category": "deathCounter",
+    "Description_PL": "Odejmuje jedną śmierć.",
+    "Description_ENG": "Subtracts one death."
+  },
+  "startBoss": {
+    "Key": "startboss",
+    "Category": "deathCounter",
+    "Description_PL": "Rozpoczyna bossa, po komendzie startboss należy wpisać nazwę.",
+    "Description_ENG": "Starts a boss, after startboss command, enter the name."
+  },
+  "stopBoss": {
+    "Key": "stopboss",
+    "Category": "deathCounter",
+    "Description_PL": "Zatrzymuje licznik bossa.",
+    "Description_ENG": "Stops the boss counter."
+  },
+  "resumeBoss": {
+    "Key": "resumeboss",
+    "Category": "deathCounter",
+    "Description_PL": "Wznawia licznik bossa.",
+    "Description_ENG": "Resume the boss counter."
+  },
+  "endBoss": {
+    "Key": "endboss",
+    "Category": "deathCounter",
+    "Description_PL": "Kończy licznik bossa.",
+    "Description_ENG": "Ends the boss counter."
+  }
+}

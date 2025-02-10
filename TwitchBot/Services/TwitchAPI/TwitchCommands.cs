@@ -1,49 +1,74 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TwitchBot.Models.DTO;
+using TwitchBot.Services.FileHandlers;
 using TwitchBot.Services.TwitchAPI.Interfaces;
 
 namespace TwitchBot.Services.TwitchAPI
 {
-    public class TwitchCommands(ITwitchSettingsService twitchSettingsService) : ITwitchCommands
+    public class TwitchCommands(ITwitchDataService twitchSettingsService) : ITwitchCommands
     {
-        private static string projectDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName).FullName).FullName;
-        private readonly string twitchChatCommandsFilePath = Path.Combine(projectDirectory, "Data", "TwitchChatCommands.settings");
-        public List<SettingDTO> GetAllPossibleCommands()
+        private readonly string twitchChatCommandsFilePath = Files.CommandsFilePath;
+        private readonly string twitchCommandUserPermissionsFilePath = Files.CommandUserPermissionsFilePath;
+        public List<CommandDTO> GetAllPossibleCommands()
         {
-            var commandStart = Data.TwitchChatCommands.Default.CommandStart.ToString();
-
-            // Wczytanie pliku XML
-            XElement xElement = XElement.Load(twitchChatCommandsFilePath);
-
-            // Przygotowanie słownika na komendy
-            var commands = new List<SettingDTO>();
-
-            // Iteracja po elementach <Setting> i wyciąganie komend i ich wartości
-            foreach (var setting in xElement.Descendants("{http://schemas.microsoft.com/VisualStudio/2004/01/settings}Setting"))
+            try
             {
-                string name = setting.Attribute("Name")?.Value;
-                string value = setting.Element("{http://schemas.microsoft.com/VisualStudio/2004/01/settings}Value")?.Value;
-
-                if (name != null && value != null)
+                // Odczytanie pliku JSON
+                if (File.Exists(twitchChatCommandsFilePath))
                 {
-                    commands.Add(new SettingDTO() { Key = name, Value = value });
+                    var json = File.ReadAllText(twitchChatCommandsFilePath);
+                    var commandDict = JsonConvert.DeserializeObject<Dictionary<string, CommandDTO>>(json);
+
+                    // Jeśli chcesz uzyskać listę obiektów CommandDTO
+                    List<CommandDTO> commandList = new List<CommandDTO>(commandDict.Values);
+
+                    return commandList;
+                }
+                else
+                {
+                    Console.WriteLine("Plik nie istnieje.");
                 }
             }
-
-            return commands;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas odczytu pliku JSON: {ex.Message}");
+            }
+            return new List<CommandDTO>();
         }
 
-        public List<UserPermissions> GetAllUsersWithCounterPermissions()
+        public UserPermissionsDTO GetAllUsersWithCounterPermissions()
         {
-            return twitchSettingsService.CounterPermissionUsers().Select(x => new UserPermissions()
+            try
             {
-                UserName = x
-            }).ToList();
+                // Odczytanie pliku JSON
+                if (File.Exists(twitchCommandUserPermissionsFilePath))
+                {
+                    var json = File.ReadAllText(twitchCommandUserPermissionsFilePath);
+                    var userPermissions = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<string>>>>(json);
+
+                    // Mapping categories to the custom structure
+                    var result = new UserPermissionsDTO
+                    {
+                        Categories = userPermissions["categories"]
+                    };
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("Plik nie istnieje.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas odczytu pliku JSON: {ex.Message}");
+            }
+            return new UserPermissionsDTO();
         }
     }
 }

@@ -10,7 +10,7 @@ using TwitchLib.Communication.Interfaces;
 
 namespace TwitchBot.Services.TwitchAPI
 {
-    public class TwitchCommandsHandler(IDeathCounter deathCounter, ITwitchSettingsService twitchSettingsService) : ITwitchCommandsHandler
+    public class TwitchCommandsHandler(IDeathCounter deathCounter, ITwitchDataService twitchSettingsService) : ITwitchCommandsHandler
     {
 
         public void ProcessCommand(string commandText, OnMessageReceivedArgs e)

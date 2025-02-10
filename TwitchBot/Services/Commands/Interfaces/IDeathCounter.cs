@@ -8,6 +8,8 @@ namespace TwitchBot.Services.Commands.Interfaces
         int bossDeathCounter { get; set; }
         string bossName { get; set; }
 
+        event Action<string, LogTypeEnum> UpdateLogTextBoxDebug;
+
         bool AddNewBossStat(string bossName, int numberOfDeaths, string bossTime);
         bool AddNewDeath();
         BossStatusEnum BossStatus();

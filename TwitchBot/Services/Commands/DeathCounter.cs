@@ -2,22 +2,28 @@
 using TwitchBot.Enums;
 using TwitchBot.Models.DTO;
 using TwitchBot.Services.Commands.Interfaces;
+using TwitchBot.Services.FileHandlers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace TwitchBot.Services.Commands
 {
     public class DeathCounter : IDeathCounter
     {
-        private System.Timers.Timer timer;
+        private System.Timers.Timer timer = new System.Timers.Timer(1000);
         private int seconds;
         private int counter;
+        private bool isInitialized = false;
         public string bossName { get; set; }
         public int bossDeathCounter { get; set; }
         private BossStatusEnum bossStatus = BossStatusEnum.Nonactive;
         private bool isCounterStarted = false;
-        private static string projectDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName).FullName).FullName;
-        private readonly string deathCounterFilePath = Path.Combine(projectDirectory, "Files", "death_counter.txt");
-        private readonly string overlayFilePath = Path.Combine(projectDirectory, "Files", "overlay.txt");
-        private readonly string statsFilePath = Path.Combine(projectDirectory, "Files", "stats.txt");
+        private readonly string deathCounterFilePath = Files.DeathCounterFilePath;
+        private readonly string overlayFilePath = Files.OverlayFilePath;
+        private readonly string statsFilePath = Files.StatsFilePath;
+
+        public event Action<string, LogTypeEnum> UpdateLogTextBoxDebug;
+        protected void UpdateLogDebug(string logMessage, LogTypeEnum logType) =>
+            UpdateLogTextBoxDebug?.Invoke(logMessage, logType);
 
         #region Regular Counter
         /// <summary>
@@ -61,7 +67,6 @@ namespace TwitchBot.Services.Commands
                 LoadState();
                 if (bossStatus == BossStatusEnum.Active)
                 {
-                    timer = new System.Timers.Timer(1000);
                     timer.Start();
                     InitializeTimer();
                 }
@@ -198,7 +203,7 @@ namespace TwitchBot.Services.Commands
                     string sTime = $"{(int)time.TotalHours:D2}:{time.Minutes:D2}:{time.Seconds:D2}";
                     bossTimerText = $"Czas: {sTime}";
                 }
-                File.WriteAllLines(overlayFilePath, new[] { $"Śmierci: {counter}", "", bossNameText, bossDeathsText, bossTimerText });
+                //File.WriteAllLines(overlayFilePath, new[] { $"Śmierci: {counter}", "", bossNameText, bossDeathsText, bossTimerText });
             }
         }
         #endregion
@@ -221,7 +226,6 @@ namespace TwitchBot.Services.Commands
                 if (bossStatus == BossStatusEnum.Paused)
                 {
                     bossStatus = BossStatusEnum.Active;
-                    timer = new System.Timers.Timer(1000);
                     timer.Start();
                     InitializeTimer();
                     return true;
@@ -244,7 +248,6 @@ namespace TwitchBot.Services.Commands
                 bossStatus = BossStatusEnum.Active;
                 bossName = bossNameT;
                 bossDeathCounter = 0;
-                timer = new System.Timers.Timer(1000);
                 timer.Start();
                 InitializeTimer();
                 SaveState();
@@ -268,7 +271,6 @@ namespace TwitchBot.Services.Commands
                     try
                     {
                         timer.Stop();
-                        timer.Close();
                         return true;
                     }
                     catch
@@ -304,7 +306,8 @@ namespace TwitchBot.Services.Commands
                 try
                 {
                     timer.Stop();
-                    timer.Close();
+                    timer.Dispose();
+                    ResetTimer();
                     return true;
                 }
                 catch
@@ -392,8 +395,17 @@ namespace TwitchBot.Services.Commands
         /// </summary>
         public void InitializeTimer()
         {
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
+            if (!isInitialized)
+            {
+                timer.Elapsed += OnTimedEvent;
+                timer.AutoReset = true;
+                isInitialized = true;
+            }
+            
+        }
+        private void ResetTimer()
+        {
+            timer.Interval = 1000;
         }
         /// <summary>
         /// Loads last saved counter.
@@ -418,7 +430,11 @@ namespace TwitchBot.Services.Commands
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             if (bossStatus == BossStatusEnum.Active)
+            {
                 seconds++;
+                DebugTimer();
+            }
+                
 
             UpdateOverlayTimer();
         }
@@ -497,6 +513,14 @@ namespace TwitchBot.Services.Commands
             return rootPath;
         }
         #endregion
+
+        private void DebugTimer()
+        {
+            TimeSpan time = TimeSpan.FromSeconds(seconds);
+            string sTime = $"{(int)time.TotalHours:D2}:{time.Minutes:D2}:{time.Seconds:D2}";
+            string bossTimerText = $"Czas: {sTime}";
+            UpdateLogDebug(bossTimerText, LogTypeEnum.Application);
+        }
 
     }
 }
