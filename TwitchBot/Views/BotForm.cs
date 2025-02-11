@@ -246,19 +246,14 @@ namespace TwitchBot
 
         private void DeleteBossStatButton_Click(object sender, EventArgs e)
         {
-            // Upewnij się, że coś jest zaznaczone
             if (statsDataGridView.SelectedRows.Count > 0)
             {
-                // Pobierz indeks zaznaczonego wiersza
                 var selectedRowIndex = statsDataGridView.SelectedRows[0].Index;
 
-                // Pobierz dane z zaznaczonego wiersza (np. bossName, deathCounter, timer)
                 string bossName = statsDataGridView.SelectedRows[0].Cells["bossName"].Value.ToString();
 
-                // Wyświetl okno dialogowe z pytaniem o potwierdzenie
                 var result = MessageBox.Show("Czy na pewno chcesz usunąć tego bossa?", "Potwierdzenie", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Jeśli użytkownik kliknie "Yes", usuwamy wiersz
                 if (result == DialogResult.Yes)
                 {
                     botViewModel.RemoveBossStat(bossName);

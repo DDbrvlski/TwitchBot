@@ -1,15 +1,11 @@
-# Ignorowanie folderów Visual Studio
 .vs/
 .vscode/
-
-# Ignorowanie plików kompilacji
 bin/
 obj/
+files/
 
-# Ignorowanie plików konfiguracyjnych środowiska
 *.user
 *.suo
 
-# Ignorowanie plików systemowych
 Thumbs.db
 .DS_Store

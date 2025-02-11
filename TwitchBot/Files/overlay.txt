@@ -1,5 +1,5 @@
-Śmierci: 999
+Śmierci: 1000
 
-Boss: awgagwagw
-Śmierci: 0
-Czas: 00:00:00
+
+
+

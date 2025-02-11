@@ -203,7 +203,7 @@ namespace TwitchBot.Services.Commands
                     string sTime = $"{(int)time.TotalHours:D2}:{time.Minutes:D2}:{time.Seconds:D2}";
                     bossTimerText = $"Czas: {sTime}";
                 }
-                //File.WriteAllLines(overlayFilePath, new[] { $"Śmierci: {counter}", "", bossNameText, bossDeathsText, bossTimerText });
+                File.WriteAllLines(overlayFilePath, new[] { $"Śmierci: {counter}", "", bossNameText, bossDeathsText, bossTimerText });
             }
         }
         #endregion

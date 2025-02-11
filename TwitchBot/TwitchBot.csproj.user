@@ -4,6 +4,9 @@
     <Compile Update="Views\AddBossStatForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Views\AddUserPermissionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Views\BotForm.cs">
       <SubType>Form</SubType>
     </Compile>
