@@ -79,9 +79,25 @@
             label3 = new Label();
             TurnOffBotButton = new Button();
             TurnOnBotButton = new Button();
-            OpenAddBossStatForm = new OpenFileDialog();
             DebugTabPage = new TabPage();
             DebugTextBox = new RichTextBox();
+            ShortcutsTabPage = new TabPage();
+            ShortcutChangingLabel = new Label();
+            ResumeBossShortcutButton = new Button();
+            PauseBossShortcutButton = new Button();
+            label11 = new Label();
+            label12 = new Label();
+            StopBossShortcutButton = new Button();
+            label14 = new Label();
+            StopCounterShortcutButton = new Button();
+            StartCounterShortcutButton = new Button();
+            label9 = new Label();
+            label10 = new Label();
+            RemoveDeathShortcutButton = new Button();
+            AddDeathShortcutButton = new Button();
+            label8 = new Label();
+            label7 = new Label();
+            OpenAddBossStatForm = new OpenFileDialog();
             tabControl1.SuspendLayout();
             CounterTabPage.SuspendLayout();
             StatsTabPage.SuspendLayout();
@@ -93,6 +109,7 @@
             LogsTabPage.SuspendLayout();
             ActivationTabPage.SuspendLayout();
             DebugTabPage.SuspendLayout();
+            ShortcutsTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -104,6 +121,7 @@
             tabControl1.Controls.Add(LogsTabPage);
             tabControl1.Controls.Add(ActivationTabPage);
             tabControl1.Controls.Add(DebugTabPage);
+            tabControl1.Controls.Add(ShortcutsTabPage);
             tabControl1.Location = new Point(5, 6);
             tabControl1.Margin = new Padding(3, 4, 3, 4);
             tabControl1.Name = "tabControl1";
@@ -690,11 +708,6 @@
             TurnOnBotButton.UseVisualStyleBackColor = true;
             TurnOnBotButton.Click += TurnOnBotButton_Click;
             // 
-            // OpenAddBossStatForm
-            // 
-            OpenAddBossStatForm.FileName = "AddBossStatForm";
-            OpenAddBossStatForm.FileOk += OpenAddBossStatForm_FileOk;
-            // 
             // DebugTabPage
             // 
             DebugTabPage.Controls.Add(DebugTextBox);
@@ -713,6 +726,181 @@
             DebugTextBox.Size = new Size(779, 505);
             DebugTextBox.TabIndex = 1;
             DebugTextBox.Text = "";
+            // 
+            // ShortcutsTabPage
+            // 
+            ShortcutsTabPage.Controls.Add(ShortcutChangingLabel);
+            ShortcutsTabPage.Controls.Add(ResumeBossShortcutButton);
+            ShortcutsTabPage.Controls.Add(PauseBossShortcutButton);
+            ShortcutsTabPage.Controls.Add(label11);
+            ShortcutsTabPage.Controls.Add(label12);
+            ShortcutsTabPage.Controls.Add(StopBossShortcutButton);
+            ShortcutsTabPage.Controls.Add(label14);
+            ShortcutsTabPage.Controls.Add(StopCounterShortcutButton);
+            ShortcutsTabPage.Controls.Add(StartCounterShortcutButton);
+            ShortcutsTabPage.Controls.Add(label9);
+            ShortcutsTabPage.Controls.Add(label10);
+            ShortcutsTabPage.Controls.Add(RemoveDeathShortcutButton);
+            ShortcutsTabPage.Controls.Add(AddDeathShortcutButton);
+            ShortcutsTabPage.Controls.Add(label8);
+            ShortcutsTabPage.Controls.Add(label7);
+            ShortcutsTabPage.Location = new Point(4, 29);
+            ShortcutsTabPage.Name = "ShortcutsTabPage";
+            ShortcutsTabPage.Size = new Size(785, 517);
+            ShortcutsTabPage.TabIndex = 7;
+            ShortcutsTabPage.Text = "Skróty klawiszowe";
+            ShortcutsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // ShortcutChangingLabel
+            // 
+            ShortcutChangingLabel.AutoSize = true;
+            ShortcutChangingLabel.Font = new Font("Segoe UI", 15F);
+            ShortcutChangingLabel.ForeColor = Color.Red;
+            ShortcutChangingLabel.Location = new Point(15, 467);
+            ShortcutChangingLabel.Name = "ShortcutChangingLabel";
+            ShortcutChangingLabel.Size = new Size(305, 35);
+            ShortcutChangingLabel.TabIndex = 16;
+            ShortcutChangingLabel.Text = "Nasłuchiwanie nieaktywne";
+            // 
+            // ResumeBossShortcutButton
+            // 
+            ResumeBossShortcutButton.Location = new Point(135, 255);
+            ResumeBossShortcutButton.Name = "ResumeBossShortcutButton";
+            ResumeBossShortcutButton.Size = new Size(94, 29);
+            ResumeBossShortcutButton.TabIndex = 15;
+            ResumeBossShortcutButton.Text = "Brak";
+            ResumeBossShortcutButton.UseVisualStyleBackColor = true;
+            ResumeBossShortcutButton.Click += ResumeBossShortcutButton_Click;
+            // 
+            // PauseBossShortcutButton
+            // 
+            PauseBossShortcutButton.Location = new Point(135, 210);
+            PauseBossShortcutButton.Name = "PauseBossShortcutButton";
+            PauseBossShortcutButton.Size = new Size(94, 29);
+            PauseBossShortcutButton.TabIndex = 14;
+            PauseBossShortcutButton.Text = "Brak";
+            PauseBossShortcutButton.UseVisualStyleBackColor = true;
+            PauseBossShortcutButton.Click += PauseBossShortcutButton_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(21, 259);
+            label11.Name = "label11";
+            label11.Size = new Size(100, 20);
+            label11.TabIndex = 13;
+            label11.Text = "Wznów bossa";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(4, 214);
+            label12.Name = "label12";
+            label12.Size = new Size(117, 20);
+            label12.TabIndex = 12;
+            label12.Text = "Zatrzymaj bossa";
+            // 
+            // StopBossShortcutButton
+            // 
+            StopBossShortcutButton.Location = new Point(135, 305);
+            StopBossShortcutButton.Name = "StopBossShortcutButton";
+            StopBossShortcutButton.Size = new Size(94, 29);
+            StopBossShortcutButton.TabIndex = 10;
+            StopBossShortcutButton.Text = "Brak";
+            StopBossShortcutButton.UseVisualStyleBackColor = true;
+            StopBossShortcutButton.Click += StopBossShortcutButton_Click;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(15, 309);
+            label14.Name = "label14";
+            label14.Size = new Size(106, 20);
+            label14.TabIndex = 8;
+            label14.Text = "Zakończ bossa";
+            // 
+            // StopCounterShortcutButton
+            // 
+            StopCounterShortcutButton.Location = new Point(135, 63);
+            StopCounterShortcutButton.Name = "StopCounterShortcutButton";
+            StopCounterShortcutButton.Size = new Size(94, 29);
+            StopCounterShortcutButton.TabIndex = 7;
+            StopCounterShortcutButton.Text = "Brak";
+            StopCounterShortcutButton.UseVisualStyleBackColor = true;
+            StopCounterShortcutButton.Click += StopCounterShortcutButton_Click;
+            // 
+            // StartCounterShortcutButton
+            // 
+            StartCounterShortcutButton.Location = new Point(135, 18);
+            StartCounterShortcutButton.Name = "StartCounterShortcutButton";
+            StartCounterShortcutButton.Size = new Size(94, 29);
+            StartCounterShortcutButton.TabIndex = 6;
+            StartCounterShortcutButton.Text = "Brak";
+            StartCounterShortcutButton.UseVisualStyleBackColor = true;
+            StartCounterShortcutButton.Click += StartCounterShortcutButton_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(36, 67);
+            label9.Name = "label9";
+            label9.Size = new Size(85, 20);
+            label9.TabIndex = 5;
+            label9.Text = "Stop licznik";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(36, 22);
+            label10.Name = "label10";
+            label10.Size = new Size(85, 20);
+            label10.TabIndex = 4;
+            label10.Text = "Start licznik";
+            label10.Click += label10_Click;
+            // 
+            // RemoveDeathShortcutButton
+            // 
+            RemoveDeathShortcutButton.Location = new Point(135, 158);
+            RemoveDeathShortcutButton.Name = "RemoveDeathShortcutButton";
+            RemoveDeathShortcutButton.Size = new Size(94, 29);
+            RemoveDeathShortcutButton.TabIndex = 3;
+            RemoveDeathShortcutButton.Text = "Brak";
+            RemoveDeathShortcutButton.UseVisualStyleBackColor = true;
+            RemoveDeathShortcutButton.Click += RemoveDeathShortcutButton_Click;
+            // 
+            // AddDeathShortcutButton
+            // 
+            AddDeathShortcutButton.Location = new Point(135, 113);
+            AddDeathShortcutButton.Name = "AddDeathShortcutButton";
+            AddDeathShortcutButton.Size = new Size(94, 29);
+            AddDeathShortcutButton.TabIndex = 2;
+            AddDeathShortcutButton.Text = "Brak";
+            AddDeathShortcutButton.TextImageRelation = TextImageRelation.TextAboveImage;
+            AddDeathShortcutButton.UseVisualStyleBackColor = true;
+            AddDeathShortcutButton.Click += AddDeathShortcutButton_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(12, 162);
+            label8.Name = "label8";
+            label8.Size = new Size(109, 20);
+            label8.TabIndex = 1;
+            label8.Text = "Odejmij śmierć";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(24, 117);
+            label7.Name = "label7";
+            label7.Size = new Size(97, 20);
+            label7.TabIndex = 0;
+            label7.Text = "Dodaj śmierć";
+            // 
+            // OpenAddBossStatForm
+            // 
+            OpenAddBossStatForm.FileName = "AddBossStatForm";
+            OpenAddBossStatForm.FileOk += OpenAddBossStatForm_FileOk;
             // 
             // BotForm
             // 
@@ -737,6 +925,8 @@
             ActivationTabPage.ResumeLayout(false);
             ActivationTabPage.PerformLayout();
             DebugTabPage.ResumeLayout(false);
+            ShortcutsTabPage.ResumeLayout(false);
+            ShortcutsTabPage.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -796,6 +986,24 @@
         private Button DeleteCommandButton;
         private TabPage DebugTabPage;
         private RichTextBox DebugTextBox;
+        private TabPage ShortcutsTabPage;
+        private Button RemoveDeathShortcutButton;
+        private Button AddDeathShortcutButton;
+        private Label label8;
+        private Label label7;
+        private Button ResumeBossShortcutButton;
+        private Button PauseBossShortcutButton;
+        private Label label11;
+        private Label label12;
+        private Button button7;
+        private Button StopBossShortcutButton;
+        private Label label13;
+        private Label label14;
+        private Button StopCounterShortcutButton;
+        private Button StartCounterShortcutButton;
+        private Label label9;
+        private Label label10;
+        private Label ShortcutChangingLabel;
     }
 }
 

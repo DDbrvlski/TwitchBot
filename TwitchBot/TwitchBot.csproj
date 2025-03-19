@@ -21,6 +21,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DeathCounterUsersPermissions.settings</DependentUpon>
     </Compile>
+    <Compile Update="Data\Shortcuts.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Shortcuts.settings</DependentUpon>
+    </Compile>
     <Compile Update="Data\TwitchChatCommands.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -37,6 +42,10 @@
     <None Update="Data\DeathCounterUsersPermissions.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>DeathCounterUsersPermissions.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Data\Shortcuts.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Shortcuts.Designer.cs</LastGenOutput>
     </None>
     <None Update="Data\TwitchChatCommands.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

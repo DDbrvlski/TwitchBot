@@ -1,13 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using TwitchBot.Data;
 using TwitchBot.Enums;
 using TwitchBot.Models.DTO;
-using TwitchBot.Services.Commands.Interfaces;
-using TwitchBot.Services.Form;
-using TwitchBot.Services.TwitchAPI.Interfaces;
 using TwitchBot.ViewModels;
 using TwitchBot.Views;
-using TwitchLib.Api.Core.Enums;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace TwitchBot
 {
@@ -15,10 +10,14 @@ namespace TwitchBot
     {
         private readonly CounterViewModel botViewModel;
         private readonly DataViewModel settingsViewModel;
-
+        private bool isListeningForShortcut = false;
+        private bool isListeningForCommand = false;
+        private ShortcutsEnum currentShortcut;
         public BotForm(CounterViewModel viewModel, DataViewModel sviewModel)
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(BotForm_KeyDown);
             botViewModel = viewModel;
             botViewModel.UpdateLogTextBox += UpdateLog;
             botViewModel.UpdateLabel += UpdateLabel;
@@ -77,7 +76,7 @@ namespace TwitchBot
         #region Commands
         public void GetAllCommands()
         {
-            CommandsDataGridView.DataSource = null; 
+            CommandsDataGridView.DataSource = null;
             CommandsDataGridView.DataSource = botViewModel.Commands;
             CommandsDataGridView.AutoGenerateColumns = false;
             CommandsDataGridView.Columns["key"].HeaderText = "Komenda";
@@ -94,7 +93,7 @@ namespace TwitchBot
             CounterUserPermissionsDataGridView.DataSource = null;
             var users = botViewModel.UserPermissions;
             var displayList = new List<dynamic>();
-            
+
             foreach (var userPermission in users.Categories)
             {
                 foreach (var user in userPermission.Value)
@@ -106,7 +105,7 @@ namespace TwitchBot
                     });
                 }
             }
-            
+
             CounterUserPermissionsDataGridView.DataSource = displayList;
 
             CounterUserPermissionsDataGridView.AutoGenerateColumns = false;
@@ -132,6 +131,7 @@ namespace TwitchBot
             GetAllCounterUserPermissions();
             LoadStatsData();
             LoadPanelSettingsData();
+            LoadShortcutsData();
         }
 
         #endregion
@@ -314,6 +314,263 @@ namespace TwitchBot
                 botViewModel.ExportBossStats(filePath);
                 MessageBox.Show($"Plik zapisany jako: {filePath}");
             }
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void SetShortcutChangingLabel(string operation = "")
+        {
+            if (isListeningForShortcut)
+            {
+                ShortcutChangingLabel.Text = $"Nasłuchiwanie skrótu dla operacji {operation}.";
+                ShortcutChangingLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                ShortcutChangingLabel.Text = "Nasłuchiwanie klawisza nieaktywne.";
+                ShortcutChangingLabel.ForeColor = Color.Red;
+            }
+        }
+        private void SetButtonShortcutText(string shortcutKey)
+        {
+            switch (currentShortcut)
+            {
+                case ShortcutsEnum.StartCounter:
+                    StartCounterShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.StopCounter:
+                    StopCounterShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.AddDeath:
+                    AddDeathShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.RemoveDeath:
+                    RemoveDeathShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.PauseBoss:
+                    PauseBossShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.ResumeBoss:
+                    ResumeBossShortcutButton.Text = shortcutKey;
+                    break;
+                case ShortcutsEnum.StopBoss:
+                    StopBossShortcutButton.Text = shortcutKey;
+                    break;
+            }
+        }
+        private string KeyToString(Keys? key)
+        {
+            switch (key)
+            {
+                case Keys.OemPeriod:
+                    return ".";
+                case Keys.Oemcomma:
+                    return ",";
+                case Keys.OemMinus:
+                    return "-";
+                case Keys.Oemplus:
+                    return "+";
+                case Keys.OemQuestion:
+                    return "?";
+                case Keys.OemQuotes:
+                    return "\"";
+                case Keys.Space:
+                    return "Space";
+                case Keys.Enter:
+                    return "Enter";
+                case Keys.Escape:
+                    return "Esc";
+                case Keys.Tab:
+                    return "Tab";
+                case Keys.Add:
+                    return "+ (NumPad)";
+                case Keys.Subtract:
+                    return "- (NumPad)";
+                case Keys.Multiply:
+                    return "* (NumPad)";
+                case Keys.Divide:
+                    return "/ (NumPad)";
+                case Keys.Oem6:
+                    return "]";
+                case Keys.Oem4:
+                    return "[";
+                case Keys.OemPipe:
+                    return "\\";
+                case Keys.OemSemicolon:
+                    return ";";
+                case Keys.Oem3:
+                    return "`";
+                case Keys.Menu:
+                    return "Alt";
+                case Keys.Control:
+                    return "Ctrl";
+                case Keys.LMenu:
+                    return "Lewy Alt";
+                case Keys.LControlKey:
+                    return "Lewy Ctrl";
+                case Keys.RMenu:
+                    return "Prawy Alt";
+                case Keys.RControlKey:
+                    return "Prawy Ctrl";
+                case Keys.D1:
+                    return "1";
+                case Keys.D2:
+                    return "2";
+                case Keys.D3:
+                    return "3";
+                case Keys.D4:
+                    return "4";
+                case Keys.D5:
+                    return "5";
+                case Keys.D6:
+                    return "6";
+                case Keys.D7:
+                    return "7";
+                case Keys.D8:
+                    return "8";
+                case Keys.D9:
+                    return "9";
+                case Keys.D0:
+                    return "0";
+                case null:
+                    return "Brak";
+                default:
+                    return key.ToString();
+            }
+        }
+        private void StartCounterShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.StartCounter;
+            ShortcutButton_Click();
+        }
+        private void StopCounterShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.StopCounter;
+            ShortcutButton_Click();
+        }
+        private void AddDeathShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.AddDeath;
+            ShortcutButton_Click();
+        }
+        private void RemoveDeathShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.RemoveDeath;
+            ShortcutButton_Click();
+        }
+        private void PauseBossShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.PauseBoss;
+            ShortcutButton_Click();
+        }
+        private void ResumeBossShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.ResumeBoss;
+            ShortcutButton_Click();
+        }
+        private void StopBossShortcutButton_Click(object sender, EventArgs e)
+        {
+            currentShortcut = ShortcutsEnum.StopBoss;
+            ShortcutButton_Click();
+        }
+        private void ShortcutButton_Click()
+        {
+            isListeningForShortcut = true;
+            isListeningForCommand = false;
+            string text = "";
+            switch (currentShortcut)
+            {
+                case ShortcutsEnum.StartCounter:
+                    text = "Start licznik";
+                    break;
+                case ShortcutsEnum.StopCounter:
+                    text = "Stop licznik";
+                    break;
+                case ShortcutsEnum.AddDeath:
+                    text = "Dodaj śmierć";
+                    break;
+                case ShortcutsEnum.RemoveDeath:
+                    text = "Odejmij śmierć";
+                    break;
+                case ShortcutsEnum.PauseBoss:
+                    text = "Zatrzymaj bossa";
+                    break;
+                case ShortcutsEnum.ResumeBoss:
+                    text = "Wznów bossa";
+                    break;
+                case ShortcutsEnum.StopBoss:
+                    text = "Zakończ bossa";
+                    break;
+            }
+            SetShortcutChangingLabel(text);
+        }
+        private void BotForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (isListeningForCommand)
+            {
+                ProcessShortcutCommads(e.KeyCode);
+            }
+            if (isListeningForShortcut)
+            {
+                string keyString = KeyToString(e.KeyCode);
+                ShortcutsViewModel.SetShortcut(currentShortcut, e.KeyCode);
+
+                isListeningForShortcut = false;
+                SetShortcutChangingLabel();
+                SetButtonShortcutText(keyString);
+                MessageBox.Show($"Przypisano skrót {keyString} do akcji {currentShortcut.ToString()}.");
+                isListeningForCommand = true;
+            }
+        }
+        private void LoadShortcutsData()
+        {
+            var shortcuts = ShortcutsViewModel.GetAllShortcuts();
+            foreach (var shortcut in shortcuts)
+            {
+                currentShortcut = shortcut.Key;
+
+                string keyString = KeyToString(shortcut.Value);
+                SetButtonShortcutText(keyString);
+            }
+            isListeningForCommand = true;
+        }
+        private void ProcessShortcutCommads(Keys key)
+        {
+            var shortcuts = ShortcutsViewModel.GetAllShortcuts();
+            foreach (var shortcut in shortcuts)
+            {
+                if (shortcut.Value == key)
+                {
+                    switch (shortcut.Key)
+                    {
+                        case ShortcutsEnum.StartCounter:
+                            botViewModel.StartCounter();
+                            break;
+                        case ShortcutsEnum.StopCounter:
+                            botViewModel.StopCounter();
+                            break;
+                        case ShortcutsEnum.AddDeath:
+                            botViewModel.AddNewDeath();
+                            break;
+                        case ShortcutsEnum.RemoveDeath:
+                            botViewModel.RemoveDeath();
+                            break;
+                        case ShortcutsEnum.PauseBoss:
+                            botViewModel.PauseBoss();
+                            break;
+                        case ShortcutsEnum.ResumeBoss:
+                            botViewModel.ResumeBoss();
+                            break;
+                        case ShortcutsEnum.StopBoss:
+                            botViewModel.EndBoss();
+                            break;
+                    }
+                    break;
+                }
+            }
+
         }
     }
 
